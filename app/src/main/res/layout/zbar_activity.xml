@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/capture_containter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SurfaceView
+            android:id="@+id/capture_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/top_mask"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+        <RelativeLayout
+            android:id="@+id/capture_crop_layout"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_below="@id/top_mask"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/capture"
+            android:contentDescription="@string/app_name">
+
+            <ImageView
+                android:id="@+id/capture_scan_line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/kakalib_scan_ray" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/bottom_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/capture_crop_layout"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/left_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_mask"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/top_mask"
+            android:layout_toLeftOf="@id/capture_crop_layout"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/right_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_mask"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/top_mask"
+            android:layout_toRightOf="@id/capture_crop_layout"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capture_crop_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="将二维码图片对准扫描框即可自动扫描"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/btn_shoudong"
+            android:layout_width="65dp"
+            android:layout_height="87dp"
+            android:layout_alignBottom="@+id/bottom_mask"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_shoudong" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/title_bg">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_title"
+                android:clickable="true"
+                android:src="@mipmap/back" />
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="头"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_ok"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_title"
+                android:text="完成"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/yuanjiao_et_shoudong"
+            android:inputType="number"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

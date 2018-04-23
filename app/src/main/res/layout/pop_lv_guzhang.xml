@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="50dp"
+    android:orientation="vertical"
+    android:background="@drawable/yuanjiao_toumingbg"
+    android:padding="2dp">
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="请选择"
+        android:textColor="@color/white"
+        android:background="@color/poptxt1"
+        android:textSize="14dp"/>
+
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"></ListView>
+
+    <TextView
+        android:id="@+id/txt_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textSize="18dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textColor="@color/poptxt1"
+        android:text="查无数据"
+        android:visibility="gone"/>
+</LinearLayout>

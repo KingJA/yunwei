@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--%p指相对于父容器-->
+    <translate
+        android:duration="500"
+        android:toXDelta="100%p" />
+</set>
+
+
+<!--android:fromXDelta="0" android:toXDelta="-100%p" 往左邊消失
+　　android:fromXDelta="-100%p" android:toXDelta="0" 從左邊進
+　　android:fromXDelta="0" android:toXDelta="100%p" 往右邊消失
+　　android:fromXDelta="100%p" android:toXDelta="0" 從右邊進
+android:fromXDelta="100%p" android:toXDelta="-100%p" 左边进右边出
+
+-->

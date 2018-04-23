@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fl_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D1D1D1" />
+
+    <com.tdr.yunwei.view.CustomRadioGroup
+        android:id="@+id/crg_home"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#fafafa"
+        android:paddingBottom="5dp" >
+    </com.tdr.yunwei.view.CustomRadioGroup>
+
+</LinearLayout>

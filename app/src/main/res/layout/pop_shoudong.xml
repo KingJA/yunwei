@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:padding="5dp"
+    android:background="@drawable/yuanjiao_et_shoudong">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:background="@drawable/btn_shoudong_txt"
+        android:text="扫不出来？请手动输入"
+        android:textSize="16dp"
+        android:textColor="@color/txt666" >
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txt999"/>
+
+    <TextView
+        android:id="@+id/txt_xuhao"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_nomral"
+        android:gravity="center"
+        android:text="生成序号"
+        android:textSize="16dp"
+        android:textColor="@color/txt666" >
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/txt999"/>
+    <TextView
+        android:id="@+id/txt_code"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_nomral"
+        android:gravity="center"
+        android:text="设备编号"
+        android:textSize="16dp"
+        android:textColor="@color/txt_shoudong" >
+    </TextView>
+
+
+
+</LinearLayout>

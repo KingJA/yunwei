@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 缩放型动画 -->
+    <scale android:fromXScale="0.3"
+        android:toXScale="1.0"
+        android:fromYScale="0.3"
+        android:toYScale="1.0"
+        android:pivotX="100%"
+        android:pivotY="100%"
+        android:duration="200"/>
+    <!-- 竖直动画  下到上 -->
+    <!-- <translate
+        android:fromXDelta="0"
+        android:toXDelta="0"
+        android:fromYDelta="60%"
+        android:toYDelta="0"
+        android:duration="300"
+        /> -->
+    <!-- 横向  右到左 -->
+    <!-- <translate
+         android:fromXDelta="100%"
+         android:toXDelta="0"
+         android:fromYDelta="0"
+         android:toYDelta="0"
+         android:duration="500"
+
+         /> -->
+    <!-- 横向  左 到右 -->
+    <!--          <translate  -->
+    <!--                 android:fromXDelta="-100%" -->
+    <!--                 android:toXDelta="0" -->
+    <!--                 android:fromYDelta="0" -->
+    <!--                 android:toYDelta="0" -->
+    <!--                 android:duration="500" -->
+    <!--                 />  -->
+
+    <alpha android:interpolator="@android:anim/decelerate_interpolator"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="200"/>
+</set>

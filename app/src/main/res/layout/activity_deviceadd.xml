@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bg"
+        >
+
+        <ImageView
+            android:id="@+id/image_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_title"
+            android:clickable="true"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="头"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_modify"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/btn_title"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="设备信息" />
+
+                <LinearLayout
+                    android:id="@+id/ll_zbar"
+                    style="@style/img_head"
+                    android:clickable="true"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/img_zbar"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/code_off"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--设备信息-->
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备编号：" />
+                        </LinearLayout>
+                        <EditText
+                            android:id="@+id/txt_devicecode"
+                            style="@style/device_et"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备类型：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_devicetype"
+                            style="@style/device_txt" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备序列号：" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/txt_deviceno"
+                            style="@style/device_et"
+                            android:hint="请输入设备序列号"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+                    <View style="@style/ll_view" />
+                    <LinearLayout
+                        android:id="@+id/ll_devicelasttime"
+                        style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="最后在线时间：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_device_last_time"
+                            style="@style/device_txt"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--设备用途-->
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="设备用途" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_usage"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备用途：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_deviceusag"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_Reserve3"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="基站类型：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_Reserve3"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--节点图片-->
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="设备图片" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/ll_add_pic">
+
+                <ImageView
+                    android:id="@+id/img_photo1"
+                    style="@style/img_add"
+                    android:src="@mipmap/image_basestation"/>
+
+                <ImageView
+                    android:id="@+id/img_photo2"
+                    style="@style/img_add"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/image_incomingline"/>
+
+                <ImageView
+                    android:id="@+id/img_photo3"
+                    style="@style/img_add"
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/image_street" />
+
+
+            </LinearLayout>
+
+            <!--节点位置-->
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="设备位置" />
+
+                <LinearLayout
+                    android:id="@+id/ll_baidu"
+                    style="@style/img_head"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/img_baidu"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/imagelocation_off" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="经度：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_lng"
+                            style="@style/device_txt"
+                            android:text="(请点击右上角图标选择)" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="纬度：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_lat"
+                            style="@style/device_txt" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout
+                        style="@style/ll_content_ll"
+                        android:layout_height="wrap_content"
+                        android:minHeight="45dp">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备地址：" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/txt_deviceaddress"
+                            style="@style/device_et"
+                            android:hint="请输入设备地址"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+                    <View style="@style/ll_view" />
+                    <LinearLayout
+
+                        android:id="@+id/ll_level"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="设备级别：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_devicelevel"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout
+
+                        android:id="@+id/ll_locationtype"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="位置类型：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_locationtype"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--辖区-->
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="辖区关联" />
+
+
+            </LinearLayout>
+            <!--去哪了-->
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_area"
+                        style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="所属辖区：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_area"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_pcs"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="派出所：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_pcs"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--运维公司-->
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="产权信息" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+
+                        android:id="@+id/ll_owner"
+                        style="@style/ll_rightback_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="产权人：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_owner"
+                            style="@style/device_txt_left" />
+
+                        <ImageView style="@style/img_right" />
+
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_company"
+                        style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="运维公司：" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_repaircompany"
+                            style="@style/device_txt_left" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--IP-->
+
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="网络信息" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView style="@style/wujiaoxing" />
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="接入方式：" />
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/rg_accesstype"
+                            android:layout_width="fill_parent"
+                            android:layout_height="25dp"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_youxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="有线"
+                                android:textColor="@color/txt999" />
+
+                            <RadioButton
+                                android:id="@+id/rb_wuxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="无线"
+                                android:textColor="@color/txt999" />
+
+                            <RadioButton
+                                android:id="@+id/rb_weizhi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未知"
+                                android:textColor="@color/txt999"
+                                android:visibility="gone" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <!--有线-->
+
+                    <LinearLayout
+                        android:id="@+id/ll_youxian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout style="@style/ll_content_ll">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+                                <TextView style="@style/wujiaoxing" />
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="设备IP：" />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/txt_ip"
+                                style="@style/device_et"
+                                android:hint="请输入设备IP"
+                                android:textColorHint="@color/txt999"/>
+
+                        </LinearLayout>
+
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout style="@style/ll_content_ll">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="掩码："
+                                    />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/txt_yanma"
+                                style="@style/device_et"
+                                android:hint="请输入掩码"
+                                android:textColorHint="@color/txt999"/>
+
+                        </LinearLayout>
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout style="@style/ll_content_ll">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="网关："
+                                    />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/txt_wangguan"
+                                style="@style/device_et"
+                                android:hint="请输入网关"
+                                android:textColorHint="@color/txt999"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <!--无线-->
+
+                    <LinearLayout
+                        android:id="@+id/ll_wuxian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout style="@style/ll_content_ll">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+                                <TextView style="@style/wujiaoxing" />
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="运营商："
+                                    android:textColorHint="@color/txt999"/>
+                            </LinearLayout>
+
+                            <RadioGroup
+                                android:id="@+id/rg_yunyingshang"
+                                android:layout_width="fill_parent"
+                                android:layout_height="25dp"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/rb_yidong"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="移动"
+                                    android:textColor="@color/txt999" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_liantong"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="联通"
+                                    android:textColor="@color/txt999" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_dianxin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="电信"
+                                    android:textColor="@color/txt999" />
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout style="@style/ll_content_ll">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="SIM卡手机号："
+                                    />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/txt_phone"
+                                style="@style/device_et"
+                                android:maxLength="12"
+                                android:hint="请输入SIM卡手机号"
+                                android:textColorHint="@color/txt999"/>
+
+                        </LinearLayout>
+
+
+                        <View style="@style/ll_view" />
+
+                        <LinearLayout
+                            style="@style/ll_content_ll"
+                            android:orientation="horizontal">
+
+                            <LinearLayout style="@style/ll_txt01">
+
+
+                                <TextView
+                                    style="@style/device_txt"
+                                    android:text="设备SIM串号："
+
+                                    />
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/txt_sim"
+                                style="@style/device_et"
+                                android:hint="请输入设备SIM串号"
+                                android:textColorHint="@color/txt999"/>
+
+                        </LinearLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="MAC地址："
+                                />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/txt_Reserve4"
+                            style="@style/device_et"
+                            android:hint="请输入MAC地址"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--附属信息-->
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="附属信息" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="电线杆号："
+
+                                />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/txt_Reserve1"
+                            style="@style/device_et"
+                            android:hint="请输入电线杆号"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="安装高度："
+                                />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/txt_Reserve2"
+                            style="@style/device_et"
+                            android:hint="请输入安装高度"
+                            android:textColorHint="@color/txt999"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="备注" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <include layout="@layout/layout_et"></include>
+
+            </LinearLayout>
+
+
+            <include layout="@layout/layout_btn_ok"></include>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

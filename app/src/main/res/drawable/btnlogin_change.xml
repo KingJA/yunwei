@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- <item android:drawable="@mipmap/btnlogin_off" android:state_focused="false" android:state_pressed="false"/>
+     <item android:drawable="#455392" android:state_focused="true"/>
+     <item android:drawable="@mipmap/btnlogin_on" android:state_pressed="true"/>-->
+
+    <item android:state_focused="false" android:state_pressed="false">
+        <color android:color="#455392"/>
+    </item>
+    <item android:state_focused="true">
+        <color android:color="#434e8c"/>
+    </item>
+    <item android:state_pressed="true">
+        <color android:color="#434e8c"/>
+    </item>
+</selector>

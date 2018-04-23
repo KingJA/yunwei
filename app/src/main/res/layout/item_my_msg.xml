@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="12.7dp"
+    android:paddingRight="22dp">
+
+    <TextView
+        android:id="@+id/tv_msg_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:text="标题" />
+
+    <TextView
+        android:id="@+id/tv_msg_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/tv_msg_title"
+        android:textSize="12sp"
+        android:layout_marginRight="40dp"
+        android:textColor="#999999"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="内容" />
+
+    <TextView
+        android:id="@+id/tv_msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="13sp"
+        android:textColor="#999999"
+        android:layout_marginTop="5dp"
+        android:text="时间" />
+    <TextView
+        android:id="@+id/tv_getmore"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="点击获取最新数据"
+        android:textSize="12sp"
+        android:textColor="#222222"/>
+</RelativeLayout>

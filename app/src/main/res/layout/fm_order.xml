@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:background="@color/title_bg"
+        android:layout_height="50dp">
+
+
+        <TextView
+            android:text="我的工单"
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:singleLine="true"/>
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_current"
+                style="@style/setting_ll">
+
+                <TextView
+                    style="@style/setting_txt"
+                    android:text="当前工单" />
+
+                <ImageView
+                    android:id="@+id/img_current"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@mipmap/right" />
+            </LinearLayout>
+
+            <View style="@style/od_view" />
+
+            <LinearLayout
+                android:id="@+id/ll_history"
+                style="@style/setting_ll">
+
+                <TextView
+                    style="@style/setting_txt"
+                    android:text="历史工单" />
+
+                <ImageView
+                    android:id="@+id/img_history"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@mipmap/right" />
+            </LinearLayout>
+
+            <View style="@style/od_view" />
+
+
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

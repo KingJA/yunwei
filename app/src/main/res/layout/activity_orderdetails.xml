@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_register"
+        layout="@layout/layout_title"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout style="@style/od_ll">
+
+                <TextView
+                    style="@style/od_txt999"
+                    android:layout_marginLeft="30dp"
+                    android:text="报障单号:" />
+
+                <TextView
+                    android:id="@+id/txt_orderno"
+                    style="@style/od_txt333"
+                    android:text="报障单号" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/mygray">
+
+                <TextView
+                    style="@style/od_txtnobg"
+                    android:text="设备信息栏" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="设备类型:" />
+
+                        <TextView
+                            android:id="@+id/txt_devicetype"
+                            style="@style/od_txt333"
+                            android:text="保障单号" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view"></View>
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="设备编号:" />
+
+                        <TextView
+                            android:id="@+id/txt_devicecode"
+                            style="@style/od_txt333"
+                            android:text="保障单号" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_deviceaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:background="@drawable/btn_nomral">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="设备地址:" />
+
+                        <TextView
+                            android:id="@+id/txt_deviceaddress"
+                            style="@style/od_txt333"
+                            android:textColor="@color/poptxt1"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:text="保障单号保障单号保障单号保障单号保障单号保障单号保障单号
+                            保障单号保障单号保障单号保障单号" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--保障信息栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/mygray">
+
+                <TextView
+                    style="@style/od_txtnobg"
+                    android:text="报障信息栏" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="报障人:" />
+
+                        <TextView
+                            android:id="@+id/txt_bzren"
+                            style="@style/od_txt333"
+                            android:text="报障单号" />
+
+                    </LinearLayout>
+
+
+                    <View style="@style/od_view" />
+
+
+                    <LinearLayout style="@style/od_ll"
+                        android:id="@+id/ll_callphone"
+                        android:clickable="true"
+                        android:background="@drawable/btn_nomral">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="报障人电话:" />
+
+                        <TextView
+                            android:id="@+id/txt_bzphone"
+                            style="@style/od_txt333"
+                            android:layout_width="0dp"
+                            android:textColor="@color/poptxt1"
+                            android:layout_weight="0.6"
+                            android:text="保障单号" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/callphone"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="报障时间:" />
+
+                        <TextView
+                            android:id="@+id/txt_bztime"
+                            style="@style/od_txt333"
+                            android:text="报障单号" />
+
+                    </LinearLayout>
+
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="是否加急:" />
+
+                        <TextView
+                            android:id="@+id/txt_isurgent"
+                            style="@style/od_txt333" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="故障描述:" />
+
+                        <TextView
+                            android:id="@+id/txt_bzdescription"
+                            style="@style/od_txt333"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:text="保障单号保障单号保障单号保障单号保障单号保障单号保障单号保障单号保障单号保障单号保障单号" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--派单信息栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/mygray">
+
+                <TextView
+                    style="@style/od_txtnobg"
+                    android:text="派单信息栏" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="派修人:" />
+
+                        <TextView
+                            android:id="@+id/txt_paino"
+                            style="@style/od_txt333" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="派工单:" />
+
+                        <TextView
+                            android:id="@+id/txt_pairen"
+                            style="@style/od_txt333" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="派单时间:" />
+
+                        <TextView
+                            android:id="@+id/txt_paitime"
+                            style="@style/od_txt333"
+                            android:text="保障单号" />
+
+                    </LinearLayout>
+
+                    <View style="@style/od_view" />
+
+                    <LinearLayout style="@style/od_ll">
+
+                        <TextView
+                            style="@style/od_txt999"
+                            android:text="要求完成时间:" />
+
+                        <TextView
+                            android:id="@+id/txt_endtime"
+                            style="@style/od_txt333"
+                            android:text="保障单号" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/mygray" />
+
+
+            <!--底部三个按钮-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_jiedan"
+                    style="@style/od_bottom_ll"
+                    >
+
+                    <ImageView
+                        android:id="@+id/img_jiedan"
+                        style="@style/od_bottom_img"
+                        android:src="@mipmap/bottom_jiedan" />
+
+                    <TextView
+                        style="@style/od_bottom_txt"
+                        android:text="接单"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_startwork"
+                    style="@style/od_bottom_ll"
+                    android:layout_marginLeft="2dp">
+
+                    <ImageView
+                        android:id="@+id/img_startwork"
+                        style="@style/od_bottom_img"
+                        android:src="@mipmap/bottom_startwork" />
+
+                    <TextView
+                        style="@style/od_bottom_txt"
+                        android:text="开始维修" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_endwork"
+                    style="@style/od_bottom_ll"
+                    android:layout_marginLeft="2dp"
+                    >
+
+
+                    <ImageView
+                        android:id="@+id/img_endwork"
+                        style="@style/od_bottom_img"
+                        android:src="@mipmap/bottom_endwork" />
+
+                    <TextView
+                        style="@style/od_bottom_txt"
+                        android:text="结束维修" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

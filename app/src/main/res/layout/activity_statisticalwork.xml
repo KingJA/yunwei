@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_register"
+        layout="@layout/layout_title"></include>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/yuanjiao_toumingbg"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总工单数" />
+
+                <TextView
+                    android:id="@+id/txt_WorkOrderCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0单" />
+
+            </LinearLayout>
+
+            <View style="@style/ll_view1dp" />
+
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总接单数" />
+
+                <TextView
+                    android:id="@+id/txt_AcceptCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0单" />
+
+            </LinearLayout>
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总工单完成数" />
+
+                <TextView
+                    android:id="@+id/txt_WorkOrderOverCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0单" />
+
+            </LinearLayout>
+
+
+            <View style="@style/ll_view1dp" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="维修次数" />
+
+                <TextView
+                    android:id="@+id/txt_RepairCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0单" />
+
+            </LinearLayout>
+
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总平均维修次数" />
+
+                <TextView
+                    android:id="@+id/txt_AvgRepairCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0单" />
+
+            </LinearLayout>
+
+
+            <View style="@style/ll_view1dp" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总超时数" />
+
+                <TextView
+                    android:id="@+id/txt_OutTimeCnt"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0次" />
+
+            </LinearLayout>
+
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="总超时率" />
+
+                <TextView
+                    android:id="@+id/txt_OutTimeRate"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+            <View
+                style="@style/ll_view"
+                android:layout_height="10dp"
+                android:layout_margin="2dp" />
+
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="非常不满意率" />
+
+                <TextView
+                    android:id="@+id/txt_SatisfactionRate1"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="不满意率" />
+
+                <TextView
+                    android:id="@+id/txt_SatisfactionRate2"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="一般率" />
+
+                <TextView
+                    android:id="@+id/txt_SatisfactionRate3"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="满意率" />
+
+                <TextView
+                    android:id="@+id/txt_SatisfactionRate4"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <View style="@style/ll_view" />
+
+            <LinearLayout style="@style/ll_statistical">
+
+                <TextView
+                    style="@style/ll_statistical_txtleft"
+                    android:text="非常满意率" />
+
+                <TextView
+                    android:id="@+id/txt_SatisfactionRate5"
+                    style="@style/ll_statistical_txtright"
+                    android:text="0" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

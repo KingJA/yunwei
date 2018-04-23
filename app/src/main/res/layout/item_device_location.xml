@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <TextView
+        android:id="@+id/tv_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:textColor="#222222"
+        android:text="天地人科技有限公司"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@mipmap/device_distance" />
+
+            <TextView
+                android:id="@+id/tv_device_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60米"
+                android:textColor="#222222"
+                android:layout_marginLeft="3dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_device_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="温州市机场大道永安江路88号"
+                android:textColor="#222222"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+<ImageView
+    android:id="@+id/iv_device_selecter"
+    android:layout_width="20dp"
+    android:layout_height="15dp"
+    android:background="@mipmap/xiala"
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    />
+</RelativeLayout>

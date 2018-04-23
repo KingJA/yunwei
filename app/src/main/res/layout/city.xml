@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.tdr.yunwei.city.WheelView
+            android:id="@+id/wheel_province"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            app:itemNumber="5"
+            app:lineColor="@android:color/transparent"
+            app:lineHeight="1.5dp"
+            app:maskHeight="48dp"
+            app:noEmpty="true"
+            app:normalTextColor="#777"
+            app:normalTextSize="14sp"
+            app:selectedTextColor="#ff000000"
+            app:selectedTextSize="22sp"
+            app:unitHeight="30dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divider" />
+
+        <com.tdr.yunwei.city.WheelView
+            android:id="@+id/wheel_city"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            app:itemNumber="5"
+            app:lineColor="@android:color/transparent"
+            app:lineHeight="1.5dp"
+            app:maskHeight="48dp"
+            app:noEmpty="true"
+            app:normalTextColor="#777"
+            app:normalTextSize="14sp"
+            app:selectedTextColor="#ff000000"
+            app:selectedTextSize="22sp"
+            app:unitHeight="30dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/divider" />
+
+        <com.tdr.yunwei.city.WheelView
+            android:id="@+id/wheel_area"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            app:itemNumber="5"
+            app:lineColor="@android:color/transparent"
+            app:lineHeight="1.5dp"
+            app:maskHeight="48dp"
+            app:noEmpty="true"
+            app:normalTextColor="#777"
+            app:normalTextSize="14sp"
+            app:selectedTextColor="#ff000000"
+            app:selectedTextSize="22sp"
+            app:unitHeight="30dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_address"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center" />
+
+</LinearLayout>

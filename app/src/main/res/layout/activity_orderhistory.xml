@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+
+        layout="@layout/layout_title"></include>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="设备信息" />
+
+
+            </LinearLayout>
+
+            <!--设备信息-->
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="设备编号：" />
+
+                        <TextView
+                            android:id="@+id/txt_devicecode"
+                            style="@style/txt_history_right"
+                            android:text="123456789" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="设备类型：" />
+
+                        <TextView
+                            android:id="@+id/txt_devicetype"
+                            style="@style/txt_history_right" />
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+
+                    <LinearLayout
+                        style="@style/ll_content_ll"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="设备地址：" />
+
+                        <TextView
+                            android:id="@+id/txt_address"
+                            style="@style/txt_history_right"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="维修信息" />
+
+            </LinearLayout>
+
+            <!--设备信息-->
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="派修人：" />
+
+                        <TextView
+                            android:id="@+id/txt_username"
+                            style="@style/txt_history_right"
+                            android:text="123456789" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout
+                        style="@style/ll_content_ll"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="维修单号：" />
+
+                        <TextView
+                            android:id="@+id/txt_workorderid"
+                            style="@style/txt_history_right" />
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="接单时间：" />
+
+                        <TextView
+                            android:id="@+id/txt_jiedantime"
+                            style="@style/txt_history_right"
+                            android:text="123456789" />
+
+                    </LinearLayout>
+
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="初次维修时间：" />
+
+                        <TextView
+                            android:id="@+id/txt_starttime"
+                            style="@style/txt_history_right"
+                            android:text="123456789" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="完成时间：" />
+
+                        <TextView
+                            android:id="@+id/txt_endtime"
+                            style="@style/txt_history_right"
+                            android:text="123456789" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="实际故障：" />
+
+                        <TextView
+                            android:id="@+id/txt_guzhang"
+                            style="@style/txt_history_right"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_reason"
+                        style="@style/ll_content_ll"
+                        android:layout_height="wrap_content"
+                        android:minHeight="45dp"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="无法维修原因：" />
+
+                        <TextView
+                            android:id="@+id/txt_reason"
+                            style="@style/txt_history_right"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--报障人信息-->
+            <LinearLayout style="@style/ll_head">
+
+                <TextView
+                    style="@style/txt_head"
+                    android:text="报障人信息" />
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/ll_content">
+
+                <LinearLayout style="@style/ll_content_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="报障人：" />
+
+                        <TextView
+                            android:id="@+id/txt_requestman"
+                            style="@style/txt_history_right" />
+
+                    </LinearLayout>
+
+                    <View style="@style/ll_view" />
+
+                    <LinearLayout style="@style/ll_content_ll">
+
+
+                        <TextView
+                            style="@style/txt_history_left"
+                            android:text="报障人电话：" />
+
+                        <TextView
+                            android:id="@+id/txt_requestphone"
+                            style="@style/txt_history_right" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <include layout="@layout/layout_btn_ok"></include>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

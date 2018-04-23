@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mygray">
+<ImageView
+    android:id="@+id/iv_back"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:src="@mipmap/back_on"/>
+
+    <LinearLayout
+        android:id="@+id/ll_last"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/update_dialog_bg"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="当前工作城市:"
+            android:textColor="@color/txt666"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/txt_lastcity"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/txt333"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+
+   <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"
+        android:text="定位城市"
+        android:textColor="@color/txt666"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/txt_mycity"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/update_dialog_bg"
+        android:gravity="center"
+        android:textColor="@color/txt333"
+        android:textSize="16dp" />-->
+
+    <ListView
+        android:id="@+id/gv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:numColumns="3"/>
+</LinearLayout>

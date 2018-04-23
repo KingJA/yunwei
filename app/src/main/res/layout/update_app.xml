@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/update_dialog_bg"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:text="发现软件版本更新"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#63C2FF"
+            android:textSize="14dp"
+
+            android:gravity="center"/>
+
+
+        <!-- split -->
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#2AACFF" />
+        <!-- Content -->
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:textColor="#AAABAF"
+                    android:text="1.解决一些bug"
+                    android:textSize="15dp"
+                    android:minHeight="50dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Ignore CheckBox -->
+
+
+        <!-- OK&Cancel Button -->
+
+        <LinearLayout
+            android:id="@+id/ll_ok"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/update_cancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/update_button_cancel_bg_selector"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="下次再说"
+                android:textColor="#AAABAF" />
+
+            <TextView
+                android:id="@+id/update_ok"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/update_button_ok_bg_selector"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="现在更新"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+
+
+
+
+        <TextView
+            android:id="@+id/txt_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/update_button_cancel_bg_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="取消下载"
+            android:textColor="#AAABAF"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</RelativeLayout>

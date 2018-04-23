@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:id="@+id/ll_currentorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_nomral"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:paddingLeft="30dp">
+
+        <LinearLayout
+            android:id="@+id/ll_yipai"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_yipai"
+                style="@style/setting_txt"
+                android:layout_marginLeft="0dp"
+                android:text="已派工单列表(10条)"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+        <View style="@style/od_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_yijie"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_yijie"
+                style="@style/setting_txt"
+                android:text="已接工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+        <View style="@style/od_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_weixiuzhong"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_weixiuzhong"
+                style="@style/setting_txt"
+                android:text="维修中工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+        <View style="@style/od_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_weixiuwan"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_weixiuwan"
+                style="@style/setting_txt"
+                android:text="维修完工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+
+        <View style="@style/od_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_guaqi"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_guaqi"
+                style="@style/setting_txt"
+                android:text="挂起工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_historyorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_nomral"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:paddingLeft="30dp">
+
+        <LinearLayout
+            android:id="@+id/ll_close"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_close"
+                style="@style/setting_txt"
+                android:text="维修完工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+
+        <View style="@style/od_view" />
+
+        <LinearLayout
+            android:id="@+id/ll_norepair"
+            style="@style/setting_ll">
+
+            <TextView
+                android:id="@+id/txt_norepair"
+                style="@style/setting_txt"
+                android:text="挂起工单列表(10条)"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/txt666"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/right" />
+        </LinearLayout>
+
+        <View style="@style/od_view" />
+    </LinearLayout>
+</LinearLayout>

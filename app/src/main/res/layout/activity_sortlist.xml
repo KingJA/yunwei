@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/back_on"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="5dp"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/search_bg"/>
+    <EditText
+        android:id="@+id/filter_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:hint="请输入城市"
+        android:singleLine="true"
+        android:textSize="15.0dip"
+        android:layout_marginLeft="36dp" />
+    <ImageView
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="14dp"
+        android:background="@mipmap/search"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="14dp" />
+
+</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_citylocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前定位城市："
+            android:textSize="15sp"
+            android:textColor="#222222"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:paddingLeft="3dp"
+            android:textColor="#222222"
+            android:layout_toRightOf="@id/tv_citylocation"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="3dp">
+
+        <ListView
+            android:id="@+id/country_lvcountry"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:divider="@null" />
+        <!--android:background="@drawable/show_head_toast_bg"-->
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:background="@mipmap/kuang"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30.0dip"
+            android:visibility="invisible" />
+        <com.sortlistview.SideBar
+            android:id="@+id/sidrbar"
+            android:layout_width="30.0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center" />
+    </FrameLayout>
+
+</LinearLayout>

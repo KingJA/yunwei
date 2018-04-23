@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_modifypwd"
+        style="@style/setting_ll">
+
+        <ImageView
+            android:id="@+id/img_setting"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/setting" />
+
+        <TextView
+            style="@style/setting_txt"
+            android:text="密码修改" />
+
+        <ImageView
+            android:id="@+id/img_right"
+            style="@style/img_right" />
+    </LinearLayout>
+
+    <View style="@style/od_view" />
+
+    <LinearLayout
+        android:id="@+id/ll_unbinging"
+        style="@style/setting_ll">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/unbinging" />
+
+        <TextView
+            style="@style/setting_txt"
+            android:text="手机解除绑定" />
+
+        <ImageView style="@style/img_right" />
+    </LinearLayout>
+
+    <View style="@style/od_view" />
+
+    <!-- <LinearLayout
+         android:id="@+id/ll_changecity"
+         style="@style/setting_ll">
+
+         <ImageView
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:layout_marginLeft="15dp"
+             android:src="@mipmap/unbinging" />
+
+         <TextView
+             style="@style/setting_txt"
+             android:text="更换工作城市" />
+
+
+         <ImageView
+             style="@style/img_right" />
+     </LinearLayout>-->
+
+
+    <LinearLayout
+        android:id="@+id/ll_updateapp"
+        style="@style/setting_ll">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/update" />
+
+        <TextView
+            style="@style/setting_txt"
+            android:text="软件升级" />
+
+        <TextView
+            android:id="@+id/txt_version"
+            style="@style/setting_txt"
+            android:gravity="center"
+            android:text="当前版本:1.0.2"
+            android:textColor="@color/poptxt1"
+            android:textSize="11dp" />
+
+        <ImageView style="@style/img_right" />
+    </LinearLayout>
+    <View style="@style/od_view" />
+    <LinearLayout
+        android:id="@+id/ll_msgbox"
+        style="@style/setting_ll">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/mymsg" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/setting_txt"
+            android:text="我的消息" />
+
+        <RelativeLayout
+            android:id="@+id/rl_newmsg"
+            android:layout_width="28dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="12.7dp"
+            android:visibility="gone"
+            >
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="14.7dp"
+                android:layout_marginTop="1.5dp"
+                android:background="@mipmap/newmsg"/>
+            <TextView
+                android:id="@+id/tv_newmsg"
+                android:layout_width="28dp"
+                android:layout_height="14.7dp"
+                android:layout_marginBottom="2.3dp"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+        <ImageView style="@style/img_right" />
+    </LinearLayout>
+
+    <View style="@style/od_view" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_exit"
+        style="@style/setting_ll"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/out" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/setting_txt"
+            android:text="退出" />
+
+        <ImageView style="@style/img_right" />
+    </LinearLayout>
+
+
+</LinearLayout>
