@@ -1,6 +1,7 @@
 package com.zbar.lib;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
@@ -65,6 +66,7 @@ public class CaptureActivity extends Activity implements Callback {
     private int cropHeight = 0;
     private RelativeLayout mContainer = null;
     private RelativeLayout mCropLayout = null;
+    private TextView btn_shoudong;
 
     public int getX() {
         return x;
@@ -99,12 +101,14 @@ public class CaptureActivity extends Activity implements Callback {
     }
 
     Activity mActivity;
-    String DeviceCode="";
+    String DeviceCode = "";
 
     LinearLayout ll_input;
 
     EditText et_code;
     TextView txt_title;
+
+    private boolean showInputButton = true;
 
     /**
      * Called when the activity is first created.
@@ -132,9 +136,11 @@ public class CaptureActivity extends Activity implements Callback {
         animation.setInterpolator(new LinearInterpolator());
         animation.setDuration(1200);
         mQrLineView.startAnimation(animation);
+        showInputButton = getIntent().getBooleanExtra("showInputButton", true);
 
 
-        TextView btn_shoudong = (TextView) findViewById(R.id.btn_shoudong);
+        btn_shoudong = (TextView) findViewById(R.id.btn_shoudong);
+        btn_shoudong.setVisibility(this.showInputButton ? View.VISIBLE : View.GONE);
         btn_shoudong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,8 +169,8 @@ public class CaptureActivity extends Activity implements Callback {
             @Override
             public void onClick(View v) {
 
-                DeviceCode= et_code.getText().toString();
-                if(!DeviceCode.equals("")){
+                DeviceCode = et_code.getText().toString();
+                if (!DeviceCode.equals("")) {
 
                     DialogUtil.Show(mActivity, "您输入的设备编码是\n\n" + DeviceCode, new DoOk() {
                         @Override
@@ -178,17 +184,15 @@ public class CaptureActivity extends Activity implements Callback {
                     });
 
 
-                }
-
-                else {
-                    ToastUtil.ErrorOrRight(mActivity,"设备编号不能为空",1);
+                } else {
+                    ToastUtil.ErrorOrRight(mActivity, "设备编号不能为空", 1);
 
                 }
 
             }
         });
 
-        txt_title=(TextView)findViewById(R.id.txt_title);
+        txt_title = (TextView) findViewById(R.id.txt_title);
 
     }
 
@@ -233,7 +237,6 @@ public class CaptureActivity extends Activity implements Callback {
 
             }
         });
-
 
 
         txt_code.setOnClickListener(new View.OnClickListener() {
@@ -415,4 +418,11 @@ public class CaptureActivity extends Activity implements Callback {
             mediaPlayer.seekTo(0);
         }
     };
+
+    public static void goSimpleCaptureActivity(Activity context, int requestCode) {
+        Intent intent = new Intent(context, CaptureActivity.class);
+        intent.putExtra("showInputButton", false);
+        context.startActivityForResult(intent, requestCode);
+
+    }
 }

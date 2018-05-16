@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -46,6 +48,7 @@ import com.tdr.yunwei.util.ZProgressHUD;
 import com.tdr.yunwei.util.ZbarUtil;
 import com.tdr.yunwei.view.Dialog.DialogUtil;
 import com.tdr.yunwei.view.Dialog.NormalListDialog;
+import com.zbar.lib.CaptureActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,14 +66,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Created by Administrator on 2017/11/20.
  */
 @ContentView(R.layout.activity_new_device_add)
 public class NewDeviceAddActivity extends Activity implements View.OnClickListener {
 
+    private static final String TAG = "NewDeviceAddActivity";
     @ViewInject(R.id.image_back)
     private ImageView image_back;
+
+    @ViewInject(R.id.iv_scan_serial)
+    private ImageView iv_scan_serial;
 
     @ViewInject(R.id.TV_Title)
     private TextView TV_Title;
@@ -233,6 +241,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
     private Map<String, String> userMap1 = new HashMap<>();
     private Map<String, String> typeMap1 = new HashMap<>();
     private boolean isVISIBLE = true;
+    private String deviceType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -257,11 +266,15 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         mGson = new Gson();
         zProgressHUD = new ZProgressHUD(mActivity);
 
+        deviceType = getIntent().getStringExtra("DeviceType");
+        Log.e(TAG, "设备类型: " + deviceType);
+
         DB = x.getDb(DBUtils.getDb());
         DIU = new DeviceInstallUtil(mActivity, DB);
         image_back.setOnClickListener(this);
         ll_Device_use.setOnClickListener(this);
         ll_Station_Type.setOnClickListener(this);
+        iv_scan_serial.setOnClickListener(this);
 
         txt_modify.setOnClickListener(this);
         img_photo1.setOnClickListener(this);
@@ -313,12 +326,12 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         txt_modify.setVisibility(View.GONE);
         LL_LastTime.setVisibility(View.GONE);
         LOG.E("DeviceType=" + getIntent().getStringExtra("DeviceType"));
-        if(userMap1!=null){
-            String use=userMap1.get("101");
-            if(use!=null&&use.contains("纠章")){
+        if (userMap1 != null) {
+            String use = userMap1.get("101");
+            if (use != null && use.contains("纠章")) {
                 txt_Device_use.setText(use);
                 setVisible(View.VISIBLE);
-            }else{
+            } else {
                 setVisible(View.GONE);
             }
         }
@@ -525,14 +538,22 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         et_txt.setEnabled(key);
     }
 
+    private static final int REQUEST_SCAN_SERIAL = 10086;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            default:
+                break;
+            case R.id.iv_scan_serial:
+                CaptureActivity.goSimpleCaptureActivity(NewDeviceAddActivity.this, REQUEST_SCAN_SERIAL);
+                break;
             case R.id.image_back:
                 finish();
                 break;
             case R.id.ll_Device_use:
-                DialogUtil.ShowList(mActivity, txt_Device_use, getUsageList(), "设备用途", new NormalListDialog.NLDListener() {
+                DialogUtil.ShowList(mActivity, txt_Device_use, getUsageList(), "设备用途", new NormalListDialog
+                        .NLDListener() {
                     @Override
                     public void onSelect(String str) {
                         LOG.E("ll_Device_use=" + str);
@@ -708,14 +729,16 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
             }
             for (DictionaryBean dictionaryBean : L1) {
 
-                if(dictionaryBean.getDictionaryName().equals("ZD_PURPOSE")&&dictionaryBean.getSystemID().equals(SystemID)){
+                if (dictionaryBean.getDictionaryName().equals("ZD_PURPOSE") && dictionaryBean.getSystemID().equals
+                        (SystemID)) {
                     list.add(dictionaryBean);
                 }
             }
 
             LOG.D("ZD_PURPOSE    " + SystemID);
 
-//            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=", SystemID).findAll();
+//            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID",
+// "=", SystemID).findAll();
             if (list == null) {
                 LOG.D("设备用途列表为空");
             }
@@ -743,7 +766,8 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         List<String> list3 = new ArrayList<String>();
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID",
+                    "=", SystemID).findAll();
             for (int i = 0; i < list.size(); i++) {
                 LOG.D("List_DictionaryName=" + list.get(i).getDictionaryName());
                 LOG.D("List_SystemID=" + list.get(i).getSystemID());
@@ -777,7 +801,8 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=",
+                    SystemID).findAll();
             LOG.E(SystemID + "   设备用途列表   list。size" + list.size());
             if (list != null && list.size() > 0) {
                 userMap1 = new HashMap<>();
@@ -803,7 +828,8 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID",
+                    "=", SystemID).findAll();
             if (list != null && list.size() > 0) {
                 typeMap1 = new HashMap<>();
                 typeMap = new HashMap<>();
@@ -1121,7 +1147,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         bean.setReserve12(et_deviceName.getText().toString());//基站名称（别名）
         LOG.E("Reserve12=" + bean.getReserve12());
 
-        if(!isVISIBLE){
+        if (!isVISIBLE) {
             bean.setReserve17("");//路口编号
             LOG.E("Reserve17=" + bean.getReserve17());
 
@@ -1145,7 +1171,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
 
             bean.setReserve24("");//中心地埋编号
             LOG.E("Reserve24=" + bean.getReserve24());
-        }else{
+        } else {
             bean.setReserve17(txt_roadNum.getText().toString());//路口编号
             LOG.E("Reserve17=" + bean.getReserve17());
 
@@ -1170,7 +1196,6 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
             bean.setReserve24(et_CentralNum.getText().toString());//中心地埋编号
             LOG.E("Reserve24=" + bean.getReserve24());
         }
-
 
 
         if (status.equals("安装")) {
@@ -1349,10 +1374,33 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case REQUEST_SCAN_SERIAL:
+                if (resultCode == Activity.RESULT_OK) {
+
+
+                    String scanResult = data.getStringExtra("result");
+                    String strZbar = ZbarUtil.DeviceZbar(mActivity, scanResult);
+                    if (TextUtils.isEmpty(strZbar)) {
+                        ToastUtil.ErrorOrRight(mActivity, "请扫描正确的设备二维码。", 1);
+                    } else {
+                        String[] device = strZbar.split(",");
+                        Log.e(TAG, "strZbar: " + strZbar);
+                        if (device[1].equals(deviceType)) {
+                            et_deviceno.setText(device[0]);
+                        } else {
+                            ToastUtil.ErrorOrRight(mActivity, "设备类型不匹配", 1);
+                        }
+                    }
+
+                }
+                break;
+
+
             case PhotoUtils.CAMERA_REQESTCODE:
                 if (resultCode == RESULT_OK) {
                     int degree = PhotoUtils.readPictureDegree(PhotoUtils.imageFile.getAbsolutePath());
-                    Bitmap bitmap = PhotoUtils.rotaingImageView(degree, PhotoUtils.getBitmapFromFile(PhotoUtils.imageFile, 800, 800));
+                    Bitmap bitmap = PhotoUtils.rotaingImageView(degree, PhotoUtils.getBitmapFromFile(PhotoUtils
+                            .imageFile, 800, 800));
                     String PhotoNum = PhotoUtils.mPicName.substring(5, 6);
                     switch (PhotoNum) {
                         case "1":

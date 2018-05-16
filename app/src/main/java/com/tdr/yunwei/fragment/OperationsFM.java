@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.tdr.yunwei.R;
@@ -15,8 +14,6 @@ import com.tdr.yunwei.adapter.ExOpearationAdapter;
 import com.tdr.yunwei.bean.DeviceMainTypeBean;
 import com.tdr.yunwei.bean.DeviceSubTypeBean;
 import com.tdr.yunwei.util.DBUtils;
-import com.tdr.yunwei.util.LOG;
-
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;

@@ -15,6 +15,8 @@ import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.baidu.mapapi.common.Logger;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.google.gson.Gson;
@@ -75,10 +78,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
 /**
  * Created by Administrator on 2016/4/20.
  */
 public class DeviceAddActivity extends Activity {
+    private static final String TAG = "DeviceAddActivity";
     private Activity mActivity;
 
     DbManager DB;
@@ -91,8 +96,8 @@ public class DeviceAddActivity extends Activity {
 
     private LinearLayout ll_area, ll_pcs;
 
-    private TextView  txt_devicetype;
-    private EditText txt_devicecode,txt_deviceno;
+    private TextView txt_devicetype;
+    private EditText txt_devicecode, txt_deviceno;
     private TextView txt_deviceusag;
     private ImageView img_zbar;
     private ImageView img_photo1, img_photo2, img_photo3;
@@ -135,7 +140,6 @@ public class DeviceAddActivity extends Activity {
     private Map<String, String> ltypeMap1 = null;
 
 
-
     Button btn_ok;
 
     String status = "";
@@ -145,12 +149,13 @@ public class DeviceAddActivity extends Activity {
 
     String Areatxt = "";
     String LastCityID = "";
-    Gson gson=new Gson();
+    Gson gson = new Gson();
     String posStr = "";
     private YunWeiApplication YWA;
     private String BaiduLNG, BaiduLAT;
-    private String MyLat="";
-    private String MyLng="";
+    private String MyLat = "";
+    private String MyLng = "";
+    private ImageView iv_scan_serial;
 
 
     @Override
@@ -161,7 +166,7 @@ public class DeviceAddActivity extends Activity {
 
         mActivity = DeviceAddActivity.this;
         ActivityUtil.AddActivity(mActivity);
-        LastCityID = SharedUtil.getValue(mActivity,"CityID");
+        LastCityID = SharedUtil.getValue(mActivity, "CityID");
         YWA = YunWeiApplication.getInstance();
 //        DB = YWA.getDB();
         DB = x.getDb(DBUtils.getDb());
@@ -169,18 +174,18 @@ public class DeviceAddActivity extends Activity {
         findView();
         MyOnClickListener();
 
-         levelMap = new HashMap<>();
-         ltypeMap = new HashMap<>();
+        levelMap = new HashMap<>();
+        ltypeMap = new HashMap<>();
 
-         userMap = new HashMap<>();
-         typeMap = new HashMap<>();
+        userMap = new HashMap<>();
+        typeMap = new HashMap<>();
 
-         userMap1 = new HashMap<>();
-         typeMap1 = new HashMap<>();
+        userMap1 = new HashMap<>();
+        typeMap1 = new HashMap<>();
 
 
-         levelMap1 =new HashMap<>();
-         typeMap1 = new HashMap<>();
+        levelMap1 = new HashMap<>();
+        typeMap1 = new HashMap<>();
 
         status = getIntent().getStringExtra("status");
 
@@ -197,9 +202,9 @@ public class DeviceAddActivity extends Activity {
     private String getSystemID(String DeviceType) {
         String systemid = "";
         try {
-            LastCityID = SharedUtil.getValue(mActivity,"CityID");
+            LastCityID = SharedUtil.getValue(mActivity, "CityID");
             List<DASBean> list = DB.selector(DASBean.class).where("DeviceTypeID", "=", DeviceType)
-                    .and("AreaID","like",LastCityID.substring(0,4)+"%").findAll();
+                    .and("AreaID", "like", LastCityID.substring(0, 4) + "%").findAll();
             if (list != null && list.size() > 0) {
                 systemid = list.get(0).getSystemID();
             }
@@ -217,9 +222,9 @@ public class DeviceAddActivity extends Activity {
         DeviceCode = getIntent().getStringExtra("DeviceCode");
         DeviceRemark = getIntent().getStringExtra("DeviceRemark");
         DeviceType = getIntent().getStringExtra("DeviceType");
-
+        Log.e(TAG, "DeviceType: " + DeviceType);
         SystemID = getSystemID(DeviceType);
-        LOG.D("SystemID="+SystemID);
+        LOG.D("SystemID=" + SystemID);
         SharedUtil.setValue(mActivity, "DeviceType", DeviceType);
         txt_devicecode.setText(DeviceCode);
         txt_devicetype.setText(DeviceRemark);
@@ -235,11 +240,18 @@ public class DeviceAddActivity extends Activity {
         txt_devicecode.setInputType(InputType.TYPE_NULL);
     }
 
+    private static final int REQUEST_SCAN_SERIAL = 10086;
 
     private void findView() {
         ll_zbar = (LinearLayout) findViewById(R.id.ll_zbar);
         img_zbar = (ImageView) findViewById(R.id.img_zbar);
-
+        iv_scan_serial = (ImageView) findViewById(R.id.iv_scan_serial);
+        iv_scan_serial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CaptureActivity.goSimpleCaptureActivity(DeviceAddActivity.this, REQUEST_SCAN_SERIAL);
+            }
+        });
 
         img_title = (ImageView) findViewById(R.id.image_back);
         tv_title = (TextView) findViewById(R.id.text_title);
@@ -407,56 +419,58 @@ public class DeviceAddActivity extends Activity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
-    public void showbean(DeviceBean devicebean){
+
+    public void showbean(DeviceBean devicebean) {
 
         LOG.D("------------deviceBean------------");
-        LOG.D("getDeviceID=  "+ devicebean.getDeviceID());
-        LOG.D("getDeviceType=  "+ devicebean.getDeviceType());
-        LOG.D("getDeviceCode=  "+ devicebean.getDeviceCode());
-        LOG.D("getSerialNumber=  "+ devicebean.getSerialNumber());
-        LOG.D("getAreaID=  "+ devicebean.getAreaID());
+        LOG.D("getDeviceID=  " + devicebean.getDeviceID());
+        LOG.D("getDeviceType=  " + devicebean.getDeviceType());
+        LOG.D("getDeviceCode=  " + devicebean.getDeviceCode());
+        LOG.D("getSerialNumber=  " + devicebean.getSerialNumber());
+        LOG.D("getAreaID=  " + devicebean.getAreaID());
 
-        LOG.D("getXQ=  "+ devicebean.getXQ());
-        LOG.D("getGAJ=  "+ devicebean.getGAJ());
-        LOG.D("getPCS=  "+ devicebean.getPCS());
-        LOG.D("getJWH=  "+ devicebean.getJWH());
-        LOG.D("getLNG=  "+ devicebean.getLNG());
-        LOG.D("getLAT=  "+ devicebean.getLAT());
+        LOG.D("getXQ=  " + devicebean.getXQ());
+        LOG.D("getGAJ=  " + devicebean.getGAJ());
+        LOG.D("getPCS=  " + devicebean.getPCS());
+        LOG.D("getJWH=  " + devicebean.getJWH());
+        LOG.D("getLNG=  " + devicebean.getLNG());
+        LOG.D("getLAT=  " + devicebean.getLAT());
 
-        LOG.D("getPhotoID1=  "+ devicebean.getPhotoID1());
-        LOG.D("getPhotoID2=  "+ devicebean.getPhotoID2());
-        LOG.D("getPhotoID3=  "+ devicebean.getPhotoID3());
+        LOG.D("getPhotoID1=  " + devicebean.getPhotoID1());
+        LOG.D("getPhotoID2=  " + devicebean.getPhotoID2());
+        LOG.D("getPhotoID3=  " + devicebean.getPhotoID3());
 
-        LOG.D("getAddress=  "+ devicebean.getAddress());
-        LOG.D("getUsage=  "+ devicebean.getUsage());
-        LOG.D("getOwner=  "+ devicebean.getOwner());
-        LOG.D("getRepairCompany=  "+ devicebean.getRepairCompany());
-        LOG.D("getCarrierOperator=  "+ devicebean.getCarrierOperator());
-        LOG.D("getIP=  "+ devicebean.getIP());
-        LOG.D("getGateway=  "+ devicebean.getGateway());
-        LOG.D("getSIM=  "+ devicebean.getSIM());
-        LOG.D("getAccessType=  "+ devicebean.getAccessType());
-        LOG.D("getDescription=  "+ devicebean.getDescription());
+        LOG.D("getAddress=  " + devicebean.getAddress());
+        LOG.D("getUsage=  " + devicebean.getUsage());
+        LOG.D("getOwner=  " + devicebean.getOwner());
+        LOG.D("getRepairCompany=  " + devicebean.getRepairCompany());
+        LOG.D("getCarrierOperator=  " + devicebean.getCarrierOperator());
+        LOG.D("getIP=  " + devicebean.getIP());
+        LOG.D("getGateway=  " + devicebean.getGateway());
+        LOG.D("getSIM=  " + devicebean.getSIM());
+        LOG.D("getAccessType=  " + devicebean.getAccessType());
+        LOG.D("getDescription=  " + devicebean.getDescription());
 
-        LOG.D("getReserve1=  "+ devicebean.getReserve1());
-        LOG.D("getReserve2=  "+ devicebean.getReserve2());
-        LOG.D("getReserve3=  "+ devicebean.getReserve3());
-        LOG.D("getReserve4=  "+ devicebean.getReserve4());
-        LOG.D("getReserve5=  "+ devicebean.getReserve5());
-        LOG.D("getReserve6=  "+ devicebean.getReserve6());
-        LOG.D("getReserve7=  "+ devicebean.getReserve7());
-        LOG.D("getReserve8=  "+ devicebean.getReserve8());
-        LOG.D("getReserve9=  "+ devicebean.getReserve9());
-        LOG.D("getReserve10=  "+ devicebean.getReserve10());
-        LOG.D("getReserve11=  "+ devicebean.getReserve11());
-        LOG.D("getReserve12=  "+ devicebean.getReserve12());
-        LOG.D("getReserve13=  "+ devicebean.getReserve13());
-        LOG.D("getReserve14=  "+ devicebean.getReserve14());
-        LOG.D("getReserve15=  "+ devicebean.getReserve15());
-        LOG.D("getReserve16=  "+ devicebean.getReserve16());
+        LOG.D("getReserve1=  " + devicebean.getReserve1());
+        LOG.D("getReserve2=  " + devicebean.getReserve2());
+        LOG.D("getReserve3=  " + devicebean.getReserve3());
+        LOG.D("getReserve4=  " + devicebean.getReserve4());
+        LOG.D("getReserve5=  " + devicebean.getReserve5());
+        LOG.D("getReserve6=  " + devicebean.getReserve6());
+        LOG.D("getReserve7=  " + devicebean.getReserve7());
+        LOG.D("getReserve8=  " + devicebean.getReserve8());
+        LOG.D("getReserve9=  " + devicebean.getReserve9());
+        LOG.D("getReserve10=  " + devicebean.getReserve10());
+        LOG.D("getReserve11=  " + devicebean.getReserve11());
+        LOG.D("getReserve12=  " + devicebean.getReserve12());
+        LOG.D("getReserve13=  " + devicebean.getReserve13());
+        LOG.D("getReserve14=  " + devicebean.getReserve14());
+        LOG.D("getReserve15=  " + devicebean.getReserve15());
+        LOG.D("getReserve16=  " + devicebean.getReserve16());
         LOG.D("------------deviceBean------------");
 
     }
+
     private void initData() {
 
         deviceBean = getIntent().getParcelableExtra("deviceBean");
@@ -468,28 +482,28 @@ public class DeviceAddActivity extends Activity {
         txt_devicetype.setText(DeviceRemark);
 
         txt_deviceno.setText(deviceBean.getSerialNumber());
-        LNG=deviceBean.getLNG();
-        LAT=deviceBean.getLAT();
-        if("".equals(LNG)){
-            LNG="0";
+        LNG = deviceBean.getLNG();
+        LAT = deviceBean.getLAT();
+        if ("".equals(LNG)) {
+            LNG = "0";
         }
-        if("".equals(LAT)){
-            LAT="0";
+        if ("".equals(LAT)) {
+            LAT = "0";
         }
 
-        if(!deviceBean.getReserve8().equals("")&&!deviceBean.getReserve7().equals("")){
-            MyLat=deviceBean.getReserve8();
-            MyLng=deviceBean.getReserve7();
-        }else{
+        if (!deviceBean.getReserve8().equals("") && !deviceBean.getReserve7().equals("")) {
+            MyLat = deviceBean.getReserve8();
+            MyLng = deviceBean.getReserve7();
+        } else {
             // 将GPS设备采集的原始GPS坐标转换成百度坐标
-            LatLng ll=new LatLng(Double.parseDouble(LAT),Double.parseDouble(LNG));
-            CoordinateConverter converter  = new CoordinateConverter();
+            LatLng ll = new LatLng(Double.parseDouble(LAT), Double.parseDouble(LNG));
+            CoordinateConverter converter = new CoordinateConverter();
             converter.from(CoordinateConverter.CoordType.GPS);
             // sourceLatLng待转换坐标
             converter.coord(ll);
             LatLng desLatLng = converter.convert();
-            MyLat=desLatLng.latitude+"";
-            MyLng=desLatLng.longitude+"";
+            MyLat = desLatLng.latitude + "";
+            MyLng = desLatLng.longitude + "";
         }
         txt_lat.setText(MyLat);
         txt_lng.setText(MyLng);
@@ -725,7 +739,7 @@ public class DeviceAddActivity extends Activity {
                 }
                 if (rb_dianxin.getId() == checkedId) {
                     CarrierOperator = rb_dianxin.getText().toString();
-                    LOG.D( "电信CarrierOperator=" + CarrierOperator);
+                    LOG.D("电信CarrierOperator=" + CarrierOperator);
                 }
             }
         });
@@ -753,7 +767,7 @@ public class DeviceAddActivity extends Activity {
                     txt_ip.setText("");
                     txt_yanma.setText("");
                     txt_wangguan.setText("");
-                    LOG.D( "无线CarrierOperator=" + CarrierOperator);
+                    LOG.D("无线CarrierOperator=" + CarrierOperator);
                 }
 
             }
@@ -795,13 +809,13 @@ public class DeviceAddActivity extends Activity {
                     Intent intent1 = new Intent(mActivity, BaiDuMapActivity.class);
                     startActivityForResult(intent1, 4);
                 }
-                if(status.equals("详情")||status.equals("修改")){
+                if (status.equals("详情") || status.equals("修改")) {
 
                     String lat = txt_lat.getText().toString();
                     String lng = txt_lng.getText().toString();
 
                     String address = txt_deviceaddress.getText().toString();
-                    LOG.D("lat="+lat+"  lng="+lng);
+                    LOG.D("lat=" + lat + "  lng=" + lng);
                     if (lat.equals("") || Double.valueOf(lat) < 0 || lng.equals("") || Double.valueOf(lng) < 0) {
                         ToastUtil.ErrorOrRight(mActivity, "无法定位", 1);
                     }
@@ -812,7 +826,7 @@ public class DeviceAddActivity extends Activity {
                         intent.putExtra("DeviceLAT", lat);
                         intent.putExtra("DeviceLNG", lng);
                         intent.putExtra("DeviceAddress", address);
-                        startActivityForResult(intent,4);
+                        startActivityForResult(intent, 4);
 
                     }
                 }
@@ -960,7 +974,7 @@ public class DeviceAddActivity extends Activity {
 
         final AlertDialog dialog;
 
-        LOG.E("ShowBigPicpath="+ strpic);
+        LOG.E("ShowBigPicpath=" + strpic);
 
         dialog = new AlertDialog.Builder(mActivity).create();
         dialog.show();//必须放在window前
@@ -999,12 +1013,13 @@ public class DeviceAddActivity extends Activity {
             }
             LOG.D("ZD_PURPOSE    " + SystemID);
 
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=",
+                    SystemID).findAll();
             if (list == null) {
-                LOG.D( "设备用途列表为空");
+                LOG.D("设备用途列表为空");
             }
 
-            LOG.D( "设备用途列表 list.size()="+list.size());
+            LOG.D("设备用途列表 list.size()=" + list.size());
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
                 levelMap = new HashMap<>();
@@ -1027,7 +1042,8 @@ public class DeviceAddActivity extends Activity {
         List<String> list3 = new ArrayList<String>();
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID",
+                    "=", SystemID).findAll();
 
 
             if (list != null && list.size() > 0) {
@@ -1050,7 +1066,6 @@ public class DeviceAddActivity extends Activity {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -1059,7 +1074,8 @@ public class DeviceAddActivity extends Activity {
     private void getLtypeList1() {
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID",
+                    "=", SystemID).findAll();
 
             if (list != null && list.size() > 0) {
                 ltypeMap1 = new HashMap<>();
@@ -1083,22 +1099,23 @@ public class DeviceAddActivity extends Activity {
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=", SystemID).findAll();
-            LOG.E(SystemID+"   设备用途列表   list。size"+list.size());
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=",
+                    SystemID).findAll();
+            LOG.E(SystemID + "   设备用途列表   list。size" + list.size());
             if (list != null && list.size() > 0) {
                 userMap1 = new HashMap<>();
                 userMap = new HashMap<>();
 
                 String DictionaryID = list.get(0).getDictionaryID();
                 List<ParamBean> list2 = DB.selector(ParamBean.class).where("DictionaryID", "=", DictionaryID).findAll();
-                LOG.E("设备用途列表   list2。size"+list2.size());
+                LOG.E("设备用途列表   list2。size" + list2.size());
                 if (list2 != null && list2.size() > 0) {
                     for (int i = 0; i < list2.size(); i++) {
                         userMap1.put(list2.get(i).getParamCode(), list2.get(i).getParamValue());
                         userMap.put(list2.get(i).getParamValue(), list2.get(i).getParamCode());
                     }
                 }
-                LOG.E(userMap1.size()+"   设备用途列表   userMap。size"+userMap.size());
+                LOG.E(userMap1.size() + "   设备用途列表   userMap。size" + userMap.size());
             }
         } catch (DbException e) {
             e.printStackTrace();
@@ -1109,7 +1126,8 @@ public class DeviceAddActivity extends Activity {
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID",
+                    "=", SystemID).findAll();
             if (list != null && list.size() > 0) {
                 typeMap1 = new HashMap<>();
                 typeMap = new HashMap<>();
@@ -1133,7 +1151,8 @@ public class DeviceAddActivity extends Activity {
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID",
+                    "=", SystemID).findAll();
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
                 levelMap1 = new HashMap<>();
@@ -1156,7 +1175,8 @@ public class DeviceAddActivity extends Activity {
         List<String> list3 = new ArrayList<String>();
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID",
+                    "=", SystemID).findAll();
 
             if (list != null && list.size() > 0) {
                 ltypeMap = new HashMap<>();
@@ -1165,7 +1185,7 @@ public class DeviceAddActivity extends Activity {
                 List<ParamBean> list2 = DB.selector(ParamBean.class).where("DictionaryID", "=", DictionaryID).findAll();
                 if (list2 != null && list2.size() > 0) {
                     for (int i = 0; i < list2.size(); i++) {
-                        LOG.E("ParamValue"+list2.get(i).getParamValue());
+                        LOG.E("ParamValue" + list2.get(i).getParamValue());
                         list3.add(list2.get(i).getParamValue());
                         ltypeMap.put(list2.get(i).getParamValue(), list2.get(i).getParamCode());
 
@@ -1183,7 +1203,8 @@ public class DeviceAddActivity extends Activity {
         List<String> list4 = new ArrayList<String>();
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_OWNERS").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_OWNERS").and("SystemID", "=",
+                    SystemID).findAll();
             if (list == null) {
                 list = new ArrayList<DictionaryBean>();
                 LOG.D("产权人总列表=" + list.size());
@@ -1246,10 +1267,10 @@ public class DeviceAddActivity extends Activity {
         String code = "";
         List<RepairCompanyBean> list = null;
         try {
-            List<RepairCompanyBean> list2=DB.findAll(RepairCompanyBean.class);
-            if(list != null ){
-                for (RepairCompanyBean rcb:list2){
-                    LOG.E("运维公司代码："+rcb.getCompanyCode());
+            List<RepairCompanyBean> list2 = DB.findAll(RepairCompanyBean.class);
+            if (list != null) {
+                for (RepairCompanyBean rcb : list2) {
+                    LOG.E("运维公司代码：" + rcb.getCompanyCode());
                 }
             }
             list = DB.selector(RepairCompanyBean.class).where("CompanyName", "=", companyname).findAll();
@@ -1296,12 +1317,14 @@ public class DeviceAddActivity extends Activity {
 
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_LOCATIONTYPE").and("SystemID",
+                    "=", SystemID).findAll();
             if (list == null) {
                 list = new ArrayList<DictionaryBean>();
             }
             String DictionaryID = list.get(0).getDictionaryID();
-            List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and("DictionaryID", "=", DictionaryID).findAll();
+            List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and
+                    ("DictionaryID", "=", DictionaryID).findAll();
             if (list2 != null && list2.size() == 1) {
                 code = list2.get(0).getParamValue();
             }
@@ -1315,11 +1338,13 @@ public class DeviceAddActivity extends Activity {
         String code = "";
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_PURPOSE").and("SystemID", "=",
+                    SystemID).findAll();
 
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
-                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and("DictionaryID", "=", DictionaryID).findAll();
+                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and
+                        ("DictionaryID", "=", DictionaryID).findAll();
 
                 if (list2 != null && list2.size() == 1) {
                     code = list2.get(0).getParamValue();
@@ -1335,11 +1360,13 @@ public class DeviceAddActivity extends Activity {
         String code = "";
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID",
+                    "=", SystemID).findAll();
 
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
-                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and("DictionaryID", "=", DictionaryID).findAll();
+                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and
+                        ("DictionaryID", "=", DictionaryID).findAll();
                 if (list2 != null && list2.size() == 1) {
                     code = list2.get(0).getParamValue();
                 }
@@ -1354,10 +1381,12 @@ public class DeviceAddActivity extends Activity {
         String code = "";
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICELEVEL").and("SystemID",
+                    "=", SystemID).findAll();
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
-                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and("DictionaryID", "=", DictionaryID).findAll();
+                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and
+                        ("DictionaryID", "=", DictionaryID).findAll();
                 if (list2 != null && list2.size() == 1) {
                     code = list2.get(0).getParamValue();
                 }
@@ -1372,10 +1401,12 @@ public class DeviceAddActivity extends Activity {
         String code = "";
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_OWNERS").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_OWNERS").and("SystemID", "=",
+                    SystemID).findAll();
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
-                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and("DictionaryID", "=", DictionaryID).findAll();
+                List<ParamBean> list2 = DB.selector(ParamBean.class).where("ParamCode", "=", prarmcode).and
+                        ("DictionaryID", "=", DictionaryID).findAll();
                 if (list2 != null && list2.size() == 1) {
                     code = list2.get(0).getParamValue();
                 }
@@ -1447,7 +1478,7 @@ public class DeviceAddActivity extends Activity {
 
 
         Usage = userMap.get(txt_deviceusag.getText().toString().trim());
-        LOG.E("userMap="+userMap.size()+"   txt_deviceusag="+txt_deviceusag.getText().toString().trim());
+        LOG.E("userMap=" + userMap.size() + "   txt_deviceusag=" + txt_deviceusag.getText().toString().trim());
 
 //        LNG = txt_lng.getText().toString().trim();
 //        LAT = txt_lat.getText().toString().trim();
@@ -1460,12 +1491,14 @@ public class DeviceAddActivity extends Activity {
         AreaID = getID(AreaMC, 1);
         PCS = getID(PCSMC, 3);
 
-        LOG.E("AreaID="+ AreaID + "/XQ/" + XQ + "/PCS/" + PCS);
+        LOG.E("AreaID=" + AreaID + "/XQ/" + XQ + "/PCS/" + PCS);
         Owner = txt_owner.getText().toString().trim();
-        if (txt_devicelevel.getText().toString().trim() != "" || !txt_devicelevel.getText().toString().trim().equals("")) {
+        if (txt_devicelevel.getText().toString().trim() != "" || !txt_devicelevel.getText().toString().trim().equals
+                ("")) {
             Reserve5 = levelMap.get(txt_devicelevel.getText().toString().trim());
         }
-        if (txt_locationtype.getText().toString().trim() != "" || !txt_locationtype.getText().toString().trim().equals("")) {
+        if (txt_locationtype.getText().toString().trim() != "" || !txt_locationtype.getText().toString().trim()
+                .equals("")) {
             Reserve6 = ltypeMap.get(txt_locationtype.getText().toString().trim());
 
         }
@@ -1508,10 +1541,10 @@ public class DeviceAddActivity extends Activity {
         zProgressHUD.show();
 
         DeviceBean bean = new DeviceBean();
-        if(HomeActivity.IsMapiIn){
+        if (HomeActivity.IsMapiIn) {
 //            ToastUtil.showShort(mActivity,"1StationID"+HomeActivity.StationID);
             bean.setDeviceID(HomeActivity.StationID);
-        }else{
+        } else {
 //            ToastUtil.showShort(mActivity,"2StationID"+DeviceID);
             bean.setDeviceID(DeviceID);
         }
@@ -1522,17 +1555,17 @@ public class DeviceAddActivity extends Activity {
         bean.setDeviceType(DeviceType);
         LOG.E("DeviceType=" + DeviceType);
         bean.setSerialNumber(SerialNumber);
-        LOG.E( "SerialNumber=" + SerialNumber);
+        LOG.E("SerialNumber=" + SerialNumber);
 
         bean.setUsage(Usage);
-        LOG.E( "Usage=" + Usage);
+        LOG.E("Usage=" + Usage);
         bean.setReserve3(Reserve3);
-        LOG.E( "Reserve3=" + Reserve3);
+        LOG.E("Reserve3=" + Reserve3);
 
         bean.setPhotoID1(getUUID());
         bean.setPhotoID2(getUUID());
         bean.setPhotoID3(getUUID());
-        LOG.E( "getUUID=" + getUUID());
+        LOG.E("getUUID=" + getUUID());
         bean.setPhoto1(Photo1ToBase64);
         bean.setPhoto2(Photo2ToBase64);
         bean.setPhoto3(Photo3ToBase64);
@@ -1591,34 +1624,34 @@ public class DeviceAddActivity extends Activity {
         Reserve7 = BaiduLNG;
         Reserve8 = BaiduLAT;
         bean.setReserve7(Reserve7);
-        LOG.E( "Reserve7=" + Reserve7);
+        LOG.E("Reserve7=" + Reserve7);
         bean.setReserve8(Reserve8);
-        LOG.E( "Reserve8=" + Reserve8);
+        LOG.E("Reserve8=" + Reserve8);
         Reserve9 = "3";
         bean.setReserve9(Reserve9);
-        LOG.E( "Reserve9=" + Reserve9);
+        LOG.E("Reserve9=" + Reserve9);
 
         Reserve10 = SharedUtil.getValue(mActivity, "UserName");
         Reserve11 = SharedUtil.getValue(mActivity, "UserPhone");
         bean.setReserve10(Reserve10);
         LOG.E("Reserve10=" + Reserve10);
         bean.setReserve11(Reserve11);
-        LOG.E( "Reserve11=" + Reserve11);
+        LOG.E("Reserve11=" + Reserve11);
         bean.setReserve12(Reserve12);
-        LOG.E( "Reserve12=" + Reserve12);
+        LOG.E("Reserve12=" + Reserve12);
         bean.setReserve13(Reserve13);
-        LOG.E( "Reserve13=" + Reserve13);
+        LOG.E("Reserve13=" + Reserve13);
         bean.setReserve14(Reserve14);
-        LOG.E( "Reserve14=" + Reserve14);
+        LOG.E("Reserve14=" + Reserve14);
         bean.setReserve15(Reserve15);
-        LOG.E( "Reserve15=" + Reserve15);
+        LOG.E("Reserve15=" + Reserve15);
         bean.setReserve16(Reserve16);
-        LOG.E( "Reserve16=" + Reserve16);
+        LOG.E("Reserve16=" + Reserve16);
 
-        LOG.E("Reserve2="+ Reserve2 + "//");
+        LOG.E("Reserve2=" + Reserve2 + "//");
 
         String deviceInfo = gson.toJson(bean);
-        LOG.E("deviceInfo="+ deviceInfo);
+        LOG.E("deviceInfo=" + deviceInfo);
 
         if (SystemID.equals("")) {
             SystemID = getSystemID(DeviceType);
@@ -1681,109 +1714,109 @@ public class DeviceAddActivity extends Activity {
         showbean(deviceBean);
 
         bean.setDeviceID(deviceBean.getDeviceID());
-        LOG.E("DeviceID="+deviceBean.getDeviceID());
+        LOG.E("DeviceID=" + deviceBean.getDeviceID());
         bean.setDeviceCode(DeviceCode);
-        LOG.E("DeviceCode="+DeviceCode);
+        LOG.E("DeviceCode=" + DeviceCode);
         bean.setDeviceType(deviceBean.getDeviceType());
-        LOG.E("DeviceType="+deviceBean.getDeviceType());
+        LOG.E("DeviceType=" + deviceBean.getDeviceType());
 
         bean.setUsage(Usage);
-        LOG.E("Usage="+Usage);
+        LOG.E("Usage=" + Usage);
         bean.setReserve3(Reserve3);
-        LOG.E("Reserve3="+Reserve3);
+        LOG.E("Reserve3=" + Reserve3);
         if (Photo1ToBase64.equals("")) {
             bean.setPhotoID1(deviceBean.getPhotoID1());
         } else if (!Photo1ToBase64.equals("")) {
             bean.setPhotoID1(getUUID());
         }
-        LOG.E("PhotoID1="+bean.getPhotoID1());
+        LOG.E("PhotoID1=" + bean.getPhotoID1());
 
         if (Photo2ToBase64.equals("")) {
             bean.setPhotoID2(deviceBean.getPhotoID2());
         } else if (!Photo2ToBase64.equals("")) {
             bean.setPhotoID2(getUUID());
         }
-        LOG.E("PhotoID2="+bean.getPhotoID2());
+        LOG.E("PhotoID2=" + bean.getPhotoID2());
         if (Photo3ToBase64.equals("")) {
             bean.setPhotoID3(deviceBean.getPhotoID3());
         } else if (!Photo3ToBase64.equals("")) {
             bean.setPhotoID3(getUUID());
         }
-        LOG.E("PhotoID3="+bean.getPhotoID3());
+        LOG.E("PhotoID3=" + bean.getPhotoID3());
         bean.setPhoto1(Photo1ToBase64);
         bean.setPhoto2(Photo2ToBase64);
         bean.setPhoto3(Photo3ToBase64);
         bean.setLAT(LAT);
-        LOG.E("LAT="+LAT);
+        LOG.E("LAT=" + LAT);
         bean.setLNG(LNG);
-        LOG.E("LNG="+LNG);
+        LOG.E("LNG=" + LNG);
         bean.setAddress(Address);
-        LOG.E("Address="+Address);
+        LOG.E("Address=" + Address);
         bean.setAreaID(AreaID);
-        LOG.E("AreaID="+AreaID);
+        LOG.E("AreaID=" + AreaID);
         bean.setXQ(XQ);
-        LOG.E("XQ="+XQ);
+        LOG.E("XQ=" + XQ);
         bean.setPCS(PCS);
-        LOG.E("PCS="+PCS);
+        LOG.E("PCS=" + PCS);
         bean.setJWH(JWH);
-        LOG.E("JWH="+JWH);
+        LOG.E("JWH=" + JWH);
 
         String Companycode = getCompanyCode(RepairCompany);
         bean.setRepairCompany(Companycode);
-        LOG.E("RepairCompany="+RepairCompany);
+        LOG.E("RepairCompany=" + RepairCompany);
         String code = getParamCode(Owner);
         bean.setOwner(code);
-        LOG.E("Owner="+Owner);
+        LOG.E("Owner=" + Owner);
         //ToastUtil.ShortCenter(mActivity,Companycode+"&&&&"+code);
 
         bean.setAccessType(AccessType);
-        LOG.E("AccessType="+AccessType);
+        LOG.E("AccessType=" + AccessType);
         bean.setMask(Mask);
-        LOG.E("Mask="+Mask);
+        LOG.E("Mask=" + Mask);
         bean.setPhone(Phone);
-        LOG.E("Phone="+Phone);
+        LOG.E("Phone=" + Phone);
         bean.setCarrierOperator(CarrierOperator);
-        LOG.E("CarrierOperator="+CarrierOperator);
+        LOG.E("CarrierOperator=" + CarrierOperator);
         bean.setGateway(Gateway);
-        LOG.E("Gateway="+Gateway);
+        LOG.E("Gateway=" + Gateway);
         bean.setIP(IP);
-        LOG.E("IP="+IP);
+        LOG.E("IP=" + IP);
         bean.setSerialNumber(SerialNumber);
-        LOG.E("SerialNumber="+SerialNumber);
+        LOG.E("SerialNumber=" + SerialNumber);
         bean.setSIM(SIM);
-        LOG.E("SIM="+SIM);
+        LOG.E("SIM=" + SIM);
 
 
         bean.setReserve1(Reserve1);
-        LOG.E("Reserve1="+Reserve1);
+        LOG.E("Reserve1=" + Reserve1);
         bean.setReserve2(Reserve2);
-        LOG.E("Reserve2="+Reserve2);
+        LOG.E("Reserve2=" + Reserve2);
         bean.setDescription(Description);
-        LOG.E("Description="+Description);
+        LOG.E("Description=" + Description);
         bean.setReserve4(Reserve4);
-        LOG.E("Reserve4="+Reserve4);
+        LOG.E("Reserve4=" + Reserve4);
         bean.setReserve5(Reserve5);
-        LOG.E("Reserve5="+Reserve5);
+        LOG.E("Reserve5=" + Reserve5);
         bean.setReserve6(Reserve6);
-        LOG.E("Reserve6="+Reserve6);
+        LOG.E("Reserve6=" + Reserve6);
 
         Reserve7 = BaiduLNG;
         Reserve8 = BaiduLAT;
         bean.setReserve7(Reserve7);
-        LOG.E("Reserve7="+Reserve7);
+        LOG.E("Reserve7=" + Reserve7);
         bean.setReserve8(Reserve8);
-        LOG.E("Reserve8="+Reserve8);
+        LOG.E("Reserve8=" + Reserve8);
 
         Reserve10 = SharedUtil.getValue(mActivity, "UserName");
         Reserve11 = SharedUtil.getValue(mActivity, "UserPhone");
 
         bean.setReserve9(Reserve9);
-        LOG.E("Reserve9="+Reserve9);
+        LOG.E("Reserve9=" + Reserve9);
         bean.setReserve10(Reserve10);
-        LOG.E("Reserve10="+Reserve10);
+        LOG.E("Reserve10=" + Reserve10);
 
         bean.setReserve11(Reserve11);
-        LOG.E("Reserve11="+Reserve11);
+        LOG.E("Reserve11=" + Reserve11);
 
         bean.setReserve12(Reserve12);
         bean.setReserve13(Reserve13);
@@ -1860,9 +1893,9 @@ public class DeviceAddActivity extends Activity {
             if (num == 3) {
                 List<CityAreaPCSBean> list = DB.selector(CityAreaPCSBean.class).where("PCSMC", "=", MC).findAll();
                 if (list != null && list.size() > 0) {
-                    for (int i = 0; i <list.size(); i++) {
-                        LOG.E("AreaID:"+list.get(i).getAreaID()+"  PCSMC:"+list.get(i).getPCSMC());
-                        if(AreaID.equals(list.get(i).getAreaID())){
+                    for (int i = 0; i < list.size(); i++) {
+                        LOG.E("AreaID:" + list.get(i).getAreaID() + "  PCSMC:" + list.get(i).getPCSMC());
+                        if (AreaID.equals(list.get(i).getAreaID())) {
                             ID = list.get(i).getPCSID();
                         }
                     }
@@ -1933,7 +1966,8 @@ public class DeviceAddActivity extends Activity {
         List<String> list3 = new ArrayList<String>();
         List<DictionaryBean> list = null;
         try {
-            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID", "=", SystemID).findAll();
+            list = DB.selector(DictionaryBean.class).where("DictionaryName", "=", "ZD_DEVICETYPE").and("SystemID",
+                    "=", SystemID).findAll();
             if (list != null && list.size() > 0) {
                 String DictionaryID = list.get(0).getDictionaryID();
                 typeMap = new HashMap<>();
@@ -1964,7 +1998,7 @@ public class DeviceAddActivity extends Activity {
     }
 
     public void photo2(int num, String name) {
-        PhotoUtils.takePicture(mActivity, name+":"+num);
+        PhotoUtils.takePicture(mActivity, name + ":" + num);
 //        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        File  file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
 //                + "/files/Pictures/" + name + ".jpg");
@@ -1990,10 +2024,31 @@ public class DeviceAddActivity extends Activity {
     String name3 = "photo3.jpg";
     String name4 = "photo4.jpg";
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
+
+            case REQUEST_SCAN_SERIAL:
+                if (resultCode == Activity.RESULT_OK) {
+                    String scanResult = data.getStringExtra("result");
+                    String strZbar = ZbarUtil.DeviceZbar(mActivity, scanResult);
+                    if (TextUtils.isEmpty(strZbar)) {
+                        ToastUtil.ErrorOrRight(mActivity, "请扫描正确的设备二维码。", 1);
+                    } else {
+                        String[] device = strZbar.split(",");
+                        Log.e(TAG, "strZbar: "+strZbar );
+                        if (device[1].equals(DeviceType)) {
+                            txt_deviceno.setText(device[0]);
+                        }else{
+                            ToastUtil.ErrorOrRight(mActivity, "设备类型不匹配", 1);
+                        }
+                    }
+
+                }
+
+                break;
             case 0:
-                if (resultCode == mActivity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
 
                     String inputtype = data.getStringExtra("inputtype");
                     //扫描
@@ -2021,10 +2076,11 @@ public class DeviceAddActivity extends Activity {
             case PhotoUtils.CAMERA_REQESTCODE:
                 if (resultCode == RESULT_OK) {
                     int degree = PhotoUtils.readPictureDegree(PhotoUtils.imageFile.getAbsolutePath());
-                    Bitmap bitmap = PhotoUtils.rotaingImageView(degree,PhotoUtils.getBitmapFromFile(PhotoUtils.imageFile, 300, 300));
+                    Bitmap bitmap = PhotoUtils.rotaingImageView(degree, PhotoUtils.getBitmapFromFile(PhotoUtils
+                            .imageFile, 300, 300));
                     String Photoindex[] = PhotoUtils.mPicName.split(":");
 
-                    switch (Photoindex[1]){
+                    switch (Photoindex[1]) {
                         case "1":
                             img_photo1.setImageBitmap(bitmap);
                             Photo1ToBase64 = PhotoUtil.bitmapToString(bitmap, mActivity);
@@ -2045,18 +2101,18 @@ public class DeviceAddActivity extends Activity {
                     LNG = data.getStringExtra("MapLNG");
                     LAT = data.getStringExtra("MapLAT");
                     Address = data.getStringExtra("Address");
-                    BaiduLAT =data.getStringExtra("BaiduMapLAT");
+                    BaiduLAT = data.getStringExtra("BaiduMapLAT");
                     BaiduLNG = data.getStringExtra("BaiduMapLNG");
-                    if(!status.equals("修改")){
-                        DeviceID =data.getStringExtra("StationID");
+                    if (!status.equals("修改")) {
+                        DeviceID = data.getStringExtra("StationID");
                     }
 //                    ToastUtil.showShort(mActivity,"Address="+data.getStringExtra("Address"));
-                    LOG.D("Address="+Address);
-                    LOG.D("LNG="+LNG);
-                    LOG.D("LAT="+LAT);
-                    LOG.D("BaiduLNG="+BaiduLNG);
-                    LOG.D("BaiduLAT="+BaiduLAT);
-                    LOG.D("StationID="+DeviceID);
+                    LOG.D("Address=" + Address);
+                    LOG.D("LNG=" + LNG);
+                    LOG.D("LAT=" + LAT);
+                    LOG.D("BaiduLNG=" + BaiduLNG);
+                    LOG.D("BaiduLAT=" + BaiduLAT);
+                    LOG.D("StationID=" + DeviceID);
                     if (!BaiduLNG.equals("")) {
                         txt_lng.setText(BaiduLNG);
                         txt_lat.setText(BaiduLAT);
@@ -2119,7 +2175,6 @@ public class DeviceAddActivity extends Activity {
                         }).setCancelable(false).show();
 
 
-
     }
     //用百度地图得到的地址（6,9）--龙湾区去寻找最合适的区域名称
 
@@ -2141,13 +2196,15 @@ public class DeviceAddActivity extends Activity {
 
     private List<String> getAreaList() {
         String l = LastCityID.substring(4, 6);
-        LOG.E("LastCityID="+LastCityID);
+        LOG.E("LastCityID=" + LastCityID);
         List<CityAreaBean> areaBeanList = null;
         List<String> list = null;
         try {
             if (l == "00" || l.equals("00")) {
-                areaBeanList = DB.selector(CityAreaBean.class).where("FAreaID", "like", LastCityID.substring(0, 4)+"%").findAll();
-//            areaBeanList = DB.findAllByWhere(CityAreaBean.class, "FAreaID like\"" + LastCityID.substring(0, 4) + "%" + "\"");
+                areaBeanList = DB.selector(CityAreaBean.class).where("FAreaID", "like", LastCityID.substring(0, 4) +
+                        "%").findAll();
+//            areaBeanList = DB.findAllByWhere(CityAreaBean.class, "FAreaID like\"" + LastCityID.substring(0, 4) +
+// "%" + "\"");
             } else {
                 areaBeanList = DB.selector(CityAreaBean.class).where("AreaID", "=", LastCityID).findAll();
             }
@@ -2176,8 +2233,8 @@ public class DeviceAddActivity extends Activity {
             areaBeanList = DB.selector(CityAreaBean.class).where("AreaMC", "=", AreaMC).findAll();
 
             if (areaBeanList != null && areaBeanList.size() > 0) {
-                for (int i = 0; i <areaBeanList.size() ; i++) {
-                    LOG.E("str="+areaBeanList.get(i).getAreaID());
+                for (int i = 0; i < areaBeanList.size(); i++) {
+                    LOG.E("str=" + areaBeanList.get(i).getAreaID());
                 }
                 str = areaBeanList.get(0).getAreaID();
             }
@@ -2202,10 +2259,10 @@ public class DeviceAddActivity extends Activity {
         if (pcsBeanList == null) {
             pcsBeanList = new ArrayList<CityAreaPCSBean>();
         }
-        LOG.E("getPCSList="+pcsBeanList.size() + "");
+        LOG.E("getPCSList=" + pcsBeanList.size() + "");
         List<String> list = new ArrayList<String>();
         for (int i = 0; i < pcsBeanList.size(); i++) {
-            LOG.E("PCS："+pcsBeanList.get(i).getPCSMC()+""+pcsBeanList.get(i).getPCSID());
+            LOG.E("PCS：" + pcsBeanList.get(i).getPCSMC() + "" + pcsBeanList.get(i).getPCSID());
             list.add(pcsBeanList.get(i).getPCSMC());
         }
 

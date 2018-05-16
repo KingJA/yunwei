@@ -143,9 +143,17 @@
 
                         <EditText
                             android:id="@+id/txt_deviceno"
-                            style="@style/device_et"
+                            style="@style/device_et_weight"
                             android:hint="请输入设备序列号"
                             android:textColorHint="@color/txt999"/>
+
+                        <ImageView
+                            android:id="@+id/iv_scan_serial"
+                            android:background="@mipmap/zbar"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"/>
 
                     </LinearLayout>
                     <View style="@style/ll_view" />

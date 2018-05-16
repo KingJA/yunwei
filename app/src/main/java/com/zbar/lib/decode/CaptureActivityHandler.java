@@ -1,7 +1,9 @@
 package com.zbar.lib.decode;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 
 import com.tdr.yunwei.R;
 import com.zbar.lib.CaptureActivity;
@@ -77,6 +79,10 @@ public final class CaptureActivityHandler extends Handler {
 					R.id.decode);
 			CameraManager.get().requestAutoFocus(this, R.id.auto_focus);
 		}
+	}
+
+	public static void goSimpleCaptureActivity(Context context, int requestCode) {
+
 	}
 
 }

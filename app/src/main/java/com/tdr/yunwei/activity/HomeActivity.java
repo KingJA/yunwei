@@ -2,9 +2,6 @@ package com.tdr.yunwei.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,50 +9,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.sortlistview.SortAdapter;
 import com.tdr.yunwei.R;
 import com.tdr.yunwei.YunWeiApplication;
-import com.tdr.yunwei.bean.CityList;
 import com.tdr.yunwei.bean.DASBean;
 import com.tdr.yunwei.bean.DictionaryBean;
-import com.tdr.yunwei.bean.MyMSG;
 import com.tdr.yunwei.bean.ParamBean;
 import com.tdr.yunwei.bean.RepairOrderBean;
-import com.tdr.yunwei.bean.StationCity;
 import com.tdr.yunwei.fragment.OperationsFM;
 import com.tdr.yunwei.fragment.OrderFM;
 import com.tdr.yunwei.fragment.SettingFM;
 import com.tdr.yunwei.fragment.StatisticalFM;
 import com.tdr.yunwei.util.ActivityUtil;
-import com.tdr.yunwei.util.Constants;
 import com.tdr.yunwei.util.DBUtils;
 import com.tdr.yunwei.util.LOG;
 import com.tdr.yunwei.util.MatchUtil;
 import com.tdr.yunwei.util.NewOrderUtil;
 import com.tdr.yunwei.util.SharedUtil;
 import com.tdr.yunwei.util.ToastUtil;
-import com.tdr.yunwei.util.WebUtil;
 import com.tdr.yunwei.util.ZbarUtil;
 import com.tdr.yunwei.view.CustomRadioGroup;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 /**

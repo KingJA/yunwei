@@ -203,7 +203,17 @@
         <item name="android:paddingLeft">5dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-
+    <style name="device_et_weight">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/txt333</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/yuanjiao_evbg</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
     <style name="ll_txt">
         <item name="android:layout_width">90dp</item>
