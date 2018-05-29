@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/title_bg"
-        >
+        android:background="@color/title_bg">
 
         <ImageView
             android:id="@+id/image_back"
@@ -147,6 +146,25 @@
                             android:hint="请输入设备序列号"
                             android:textColorHint="@color/txt999"/>
 
+
+                    </LinearLayout>
+                    <View style="@style/ll_view" />
+                    <LinearLayout style="@style/ll_content_ll">
+
+                        <LinearLayout style="@style/ll_txt01">
+
+
+                            <TextView
+                                style="@style/device_txt"
+                                android:text="生产序列号：" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/et_produceNo"
+                            style="@style/device_et_weight"
+                            android:hint="请输入生产序列号"
+                            android:textColorHint="@color/txt999"/>
+
                         <ImageView
                             android:id="@+id/iv_scan_serial"
                             android:background="@mipmap/zbar"
@@ -264,18 +282,21 @@
                 <ImageView
                     android:id="@+id/img_photo1"
                     style="@style/img_add"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/image_basestation"/>
 
                 <ImageView
                     android:id="@+id/img_photo2"
                     style="@style/img_add"
                     android:layout_marginLeft="20dp"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/image_incomingline"/>
 
                 <ImageView
                     android:id="@+id/img_photo3"
                     style="@style/img_add"
                     android:layout_marginLeft="20dp"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/image_street" />
 
 

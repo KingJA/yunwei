@@ -5,15 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.baidu.mapapi.common.Logger;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
 import com.google.gson.Gson;
@@ -43,13 +37,13 @@ import com.tdr.yunwei.bean.CityAreaBean;
 import com.tdr.yunwei.bean.CityAreaPCSBean;
 import com.tdr.yunwei.bean.DASBean;
 import com.tdr.yunwei.bean.DeviceBean;
-import com.tdr.yunwei.bean.DeviceMainTypeBean;
 import com.tdr.yunwei.bean.DictionaryBean;
 import com.tdr.yunwei.bean.ParamBean;
 import com.tdr.yunwei.bean.RepairCompanyBean;
 import com.tdr.yunwei.util.ActivityUtil;
 import com.tdr.yunwei.util.Constants;
 import com.tdr.yunwei.util.DBUtils;
+import com.tdr.yunwei.util.DeviceInstallUtil;
 import com.tdr.yunwei.util.LOG;
 import com.tdr.yunwei.util.MatchUtil;
 import com.tdr.yunwei.util.PhotoUtil;
@@ -63,14 +57,12 @@ import com.tdr.yunwei.view.Dialog.DialogUtil;
 import com.tdr.yunwei.view.Dialog.DoOk;
 import com.zbar.lib.CaptureActivity;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,6 +73,7 @@ import java.util.UUID;
 
 /**
  * Created by Administrator on 2016/4/20.
+ * 城市网关
  */
 public class DeviceAddActivity extends Activity {
     private static final String TAG = "DeviceAddActivity";
@@ -156,12 +149,13 @@ public class DeviceAddActivity extends Activity {
     private String MyLat = "";
     private String MyLng = "";
     private ImageView iv_scan_serial;
+    private EditText et_produceNo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.e(TAG, "城市网关: ");
         setContentView(R.layout.activity_deviceadd);
 
         mActivity = DeviceAddActivity.this;
@@ -245,6 +239,7 @@ public class DeviceAddActivity extends Activity {
     private void findView() {
         ll_zbar = (LinearLayout) findViewById(R.id.ll_zbar);
         img_zbar = (ImageView) findViewById(R.id.img_zbar);
+        et_produceNo = (EditText) findViewById(R.id.et_produceNo);
         iv_scan_serial = (ImageView) findViewById(R.id.iv_scan_serial);
         iv_scan_serial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -510,7 +505,7 @@ public class DeviceAddActivity extends Activity {
 
 
         txt_deviceaddress.setText(deviceBean.getAddress());
-
+        et_produceNo.setText(deviceBean.getReserve13());
         txt_area.setText(getAreaMC(deviceBean.getAreaID()));
         txt_pcs.setText(getPCSMC(deviceBean.getPCS()));
 
@@ -1566,9 +1561,14 @@ public class DeviceAddActivity extends Activity {
         bean.setPhotoID2(getUUID());
         bean.setPhotoID3(getUUID());
         LOG.E("getUUID=" + getUUID());
+
         bean.setPhoto1(Photo1ToBase64);
         bean.setPhoto2(Photo2ToBase64);
         bean.setPhoto3(Photo3ToBase64);
+
+//        bean.setPhoto1("");
+//        bean.setPhoto2("");
+//        bean.setPhoto3("");
 
         bean.setLAT(LAT);
         LOG.E("LAT=" + LAT);
@@ -1581,7 +1581,7 @@ public class DeviceAddActivity extends Activity {
         bean.setXQ(XQ);
         LOG.E("XQ=" + XQ);
         bean.setPCS(PCS);
-        LOG.E("PCS=" + PCS);
+        LOG.E("派出所PCS=" + PCS);
         bean.setJWH(JWH);
         LOG.E("JWH=" + JWH);
 
@@ -1639,8 +1639,8 @@ public class DeviceAddActivity extends Activity {
         LOG.E("Reserve11=" + Reserve11);
         bean.setReserve12(Reserve12);
         LOG.E("Reserve12=" + Reserve12);
-        bean.setReserve13(Reserve13);
-        LOG.E("Reserve13=" + Reserve13);
+        bean.setReserve13(et_produceNo.getText().toString().trim());
+        LOG.E("Reserve13 produceNo=" + et_produceNo.getText().toString().trim());
         bean.setReserve14(Reserve14);
         LOG.E("Reserve14=" + Reserve14);
         bean.setReserve15(Reserve15);
@@ -1660,6 +1660,8 @@ public class DeviceAddActivity extends Activity {
         map.put("accessToken", SharedUtil.getToken(mActivity));
         map.put("deviceInfo", deviceInfo);
         map.put("systemID", SystemID);
+
+        Log.e(TAG, "【deviceInfo】: "+deviceInfo );
 
         //ToastUtil.showShort(mActivity,SystemID+"//"+AreaID+"//"+PCS);
 
@@ -1819,7 +1821,7 @@ public class DeviceAddActivity extends Activity {
         LOG.E("Reserve11=" + Reserve11);
 
         bean.setReserve12(Reserve12);
-        bean.setReserve13(Reserve13);
+        bean.setReserve13(et_produceNo.getText().toString().trim());
         bean.setReserve14(Reserve14);
         bean.setReserve15(Reserve15);
         bean.setReserve16(Reserve16);
@@ -2024,6 +2026,9 @@ public class DeviceAddActivity extends Activity {
     String name3 = "photo3.jpg";
     String name4 = "photo4.jpg";
 
+    private static final String PRODUCE_NO_TYPE = "1604";
+    private String produceNo;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -2037,8 +2042,9 @@ public class DeviceAddActivity extends Activity {
                     } else {
                         String[] device = strZbar.split(",");
                         Log.e(TAG, "strZbar: "+strZbar );
-                        if (device[1].equals(DeviceType)) {
-                            txt_deviceno.setText(device[0]);
+                        if (device[1].equals(PRODUCE_NO_TYPE)) {
+                            produceNo = device[0];
+                            et_produceNo.setText(produceNo);
                         }else{
                             ToastUtil.ErrorOrRight(mActivity, "设备类型不匹配", 1);
                         }

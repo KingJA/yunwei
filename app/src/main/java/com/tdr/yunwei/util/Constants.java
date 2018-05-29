@@ -70,10 +70,6 @@ public class Constants {
     public static final String Sys_InstructionResult = "Sys_InstructionResult";//红绿灯设备指令结果查询
     public static final String Sys_DeviceBinding = "Sys_DeviceBinding";//红绿灯设备绑定状态查询
 
-
-
-
-
     public static final String SetAppWorkArea = "SetAppWorkArea";
     public static final String UpdateCityArea = "UpdateCityArea";
     public static final String UpdateCityInfo = "UpdateCityInfo";

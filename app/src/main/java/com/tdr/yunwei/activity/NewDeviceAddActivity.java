@@ -2,16 +2,11 @@ package com.tdr.yunwei.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.opengl.GLDebugHelper;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -50,25 +45,23 @@ import com.tdr.yunwei.view.Dialog.DialogUtil;
 import com.tdr.yunwei.view.Dialog.NormalListDialog;
 import com.zbar.lib.CaptureActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
-import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 
 /**
  * Created by Administrator on 2017/11/20.
+ * 纠察网关
  */
 @ContentView(R.layout.activity_new_device_add)
 public class NewDeviceAddActivity extends Activity implements View.OnClickListener {
@@ -219,6 +212,9 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
     @ViewInject(R.id.TV_Submit)
     private TextView TV_Submit;
 
+    @ViewInject(R.id.et_produceNo)
+    private EditText et_produceNo;
+
 
     private Activity mActivity;
 
@@ -246,6 +242,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "当前Activity: ");
         x.view().inject(this);
         initview();
         ActivityUtil.AddActivity(mActivity);
@@ -389,6 +386,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         txt_lng.setText(lng);
 
         et_deviceaddress.setText(Address);
+        et_produceNo.setText(device.getReserve13());
         txt_roadNum.setText(device.getROADNO());
 
         if (userMap1 != null) {
@@ -578,7 +576,8 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
                     txt_modify.setText("取消");
                     TV_Submit.setText("确认修改");
                     status = "修改";
-                    setViewEnabled(true);
+//                    setViewEnabled(true);
+                    setViewEnable();
                 } else {
                     txt_modify.setText("修改");
                     TV_Submit.setText("返回");
@@ -702,6 +701,42 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         }
     }
 
+    private void setViewEnable() {
+        et_devicecode.setEnabled(false);
+        et_deviceno.setEnabled(false);
+        et_deviceaddress.setEnabled(true);
+        ll_Device_use.setEnabled(true);
+        ll_Station_Type.setEnabled(true);
+        ll_roadNum.setEnabled(true);
+        ll_roadType.setEnabled(true);
+        ET_NorthRoad.setEnabled(true);
+        ET_WestRoad.setEnabled(true);
+        ET_SouthRoad.setEnabled(true);
+        ET_EastRoad.setEnabled(true);
+        ll_One_Geographic.setEnabled(true);
+        et_CentralNum.setEnabled(true);
+        ll_area.setEnabled(true);
+        ll_pcs.setEnabled(true);
+        ll_owner.setEnabled(true);
+
+        rb_youxian.setEnabled(true);
+        rb_wuxian.setEnabled(true);
+        rb_yidong.setEnabled(true);
+        rb_liantong.setEnabled(true);
+        rb_dianxin.setEnabled(true);
+
+        et_ip.setEnabled(true);
+        et_yanma.setEnabled(true);
+        et_wangguan.setEnabled(true);
+        et_mac.setEnabled(true);
+        et_phone.setEnabled(true);
+        et_sim.setEnabled(true);
+
+        et_TelegraphPole.setEnabled(true);
+        et_height.setEnabled(true);
+        et_txt.setEnabled(true);
+    }
+
     private void setVisible(int Visible) {
         LL_Type_Visibility.setVisibility(Visible);
         if (Visible == View.VISIBLE) {
@@ -719,7 +754,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         try {
             list3 = new ArrayList<String>();
             userMap = new HashMap<>();
-            List<DictionaryBean> list = null;
+            List<DictionaryBean> list = new ArrayList<>();
             List<DictionaryBean> L1 = null;
 
             L1 = DB.findAll(DictionaryBean.class);
@@ -891,11 +926,6 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
             ToastUtil.showShort(mActivity, "基站类型不能为空");
             return true;
         }
-//        String deviceName = et_deviceName.getText().toString().trim();
-//        if (deviceName == null || deviceName.equals("")) {
-//            ToastUtil.showShort(mActivity, "请输入设备名称");
-//            return false;
-//        }
         String devicetype = txt_devicetype.getText().toString().trim();
         if (devicetype == null || devicetype.equals("")) {
             ToastUtil.showShort(mActivity, "设备类型为空");
@@ -1022,6 +1052,8 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
                 case R.id.rb_dianxin:
                     CarrierOperator = rb_dianxin.getText().toString().trim();
                     break;
+                default:
+                    break;
             }
         } else {
             AccessType = "1";
@@ -1037,6 +1069,9 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
                 break;
             case "小型路口":
                 roadType = "3";
+                break;
+
+            default:
                 break;
 
         }
@@ -1147,6 +1182,9 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         bean.setReserve12(et_deviceName.getText().toString());//基站名称（别名）
         LOG.E("Reserve12=" + bean.getReserve12());
 
+        bean.setReserve13(et_produceNo.getText().toString().trim());//生产序列号
+        LOG.E("Reserve13 et_produceNo=" +et_produceNo.getText().toString().trim());
+
         if (!isVISIBLE) {
             bean.setReserve17("");//路口编号
             LOG.E("Reserve17=" + bean.getReserve17());
@@ -1207,7 +1245,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
             bean.setReserve5("");//备用字段5，基站级别
             bean.setReserve6("");//备用字段6，位置类型
 
-            bean.setReserve13("");//备用字段13
+            bean.setReserve13(et_produceNo.getText().toString().trim());//备用字段13
             bean.setReserve14("");//备用字段14
             bean.setReserve15("");//备用字段15
             bean.setReserve16("");//备用字段16
@@ -1221,7 +1259,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
             bean.setReserve5(device.getReserve5());
             bean.setReserve6(device.getReserve6());
 
-            bean.setReserve13(device.getReserve13());
+            bean.setReserve13(et_produceNo.getText().toString().trim());
             bean.setReserve14(device.getReserve14());
             bean.setReserve15(device.getReserve15());
             bean.setReserve16(device.getReserve16());
@@ -1257,7 +1295,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         zProgressHUD.show();
 
         String deviceInfo = mGson.toJson(setdata());
-        LOG.E("deviceInfo=" + deviceInfo);
+        LOG.E("New deviceInfo=" + deviceInfo);
 
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("accessToken", SharedUtil.getToken(mActivity));
@@ -1269,6 +1307,7 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
         WebUtil.getInstance(mActivity).webRequest(Constants.Sys_AddDeviceNew, map, new WebUtil.MyCallback() {
             @Override
             public void onSuccess(String result) {
+
                 zProgressHUD.dismiss();
                 if (result.equals("-1")) {
                     return;
@@ -1370,14 +1409,15 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
 
     }
 
+    private static final String PRODUCE_NO_TYPE = "1604";
+    private String produceNo;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_SCAN_SERIAL:
                 if (resultCode == Activity.RESULT_OK) {
-
-
                     String scanResult = data.getStringExtra("result");
                     String strZbar = ZbarUtil.DeviceZbar(mActivity, scanResult);
                     if (TextUtils.isEmpty(strZbar)) {
@@ -1385,8 +1425,9 @@ public class NewDeviceAddActivity extends Activity implements View.OnClickListen
                     } else {
                         String[] device = strZbar.split(",");
                         Log.e(TAG, "strZbar: " + strZbar);
-                        if (device[1].equals(deviceType)) {
-                            et_deviceno.setText(device[0]);
+                        if (device[1].equals(PRODUCE_NO_TYPE)) {
+                            produceNo = device[0];
+                            et_produceNo.setText(produceNo);
                         } else {
                             ToastUtil.ErrorOrRight(mActivity, "设备类型不匹配", 1);
                         }

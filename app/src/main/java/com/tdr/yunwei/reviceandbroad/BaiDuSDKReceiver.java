@@ -23,8 +23,8 @@ public class BaiDuSDKReceiver extends BroadcastReceiver {
         String s = intent.getAction();
         Log.e("key", s);
         if (s.equals(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR)) {
-            Log.e("Pan", "key="+s+"  SDK"+SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
-            ToastUtil.ShortCenter(context, "key 验证出错！");
+            Log.e("Pan", "验证出错 key="+s+"  SDK"+SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
+//            ToastUtil.ShortCenter(context, "key 验证出错！");
         }
         if (s.equals(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_OK)) {
             //ToastUtil.ShortCenter(context, "key 验证成功！");

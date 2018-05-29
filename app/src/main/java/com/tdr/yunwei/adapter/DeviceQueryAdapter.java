@@ -129,6 +129,9 @@ public class DeviceQueryAdapter extends BaseSimpleAdapter<DeviceBean> {
                     mybean.setReserve9(bean.getReserve9());
                     mybean.setReserve10(bean.getReserve10());
                     mybean.setReserve11(bean.getReserve11());
+                    mybean.setReserve12(bean.getReserve12());
+                    mybean.setReserve13(bean.getReserve13());
+                    mybean.setReserve14(bean.getReserve14());
                     mybean.setDescription(bean.getDescription());
 
                     SharedUtil.setValue(mActivity,"Photo1",bean.getPhoto1());

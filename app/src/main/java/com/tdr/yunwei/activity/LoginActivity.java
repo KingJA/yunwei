@@ -70,6 +70,7 @@ import java.util.List;
  * Created by Administrator on 2016/4/19.
  */
 public class LoginActivity extends Activity {
+    private static final String TAG = "LoginActivity";
     /**
      * 储存登录相关信息
      */
@@ -294,6 +295,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 txt_password = txt_pwd.getText().toString().trim();
+                Log.e(TAG, "txt_password: "+txt_password );
                 if (txt_password.equals("")) {
                     ToastUtil.showShort(mActivity, "请输入密码");
                     cb_pwd.setChecked(false);
@@ -586,6 +588,7 @@ public class LoginActivity extends Activity {
 
         SharedUtil.setValue(mActivity, "UserPhone", UserPhone);
         Log.e("Pan","UserPhone"+UserPhone);
+        Log.e("Pan","密码"+txt_password);
         SharedUtil.setValue(mActivity, "CompanyName", CompanyName);
         Log.e("Pan","CompanyName"+CompanyName);
         SharedUtil.setValue(mActivity, "DispName", DispName);
