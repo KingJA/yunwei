@@ -74,4 +74,16 @@ public class CityAreaPCSBean extends BeanID{
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    @Override
+    public String toString() {
+        return "CityAreaPCSBean{" +
+                "ID=" + ID +
+                ", PCSID='" + PCSID + '\'' +
+                ", PCSMC='" + PCSMC + '\'' +
+                ", AreaID='" + AreaID + '\'' +
+                ", IsValid='" + IsValid + '\'' +
+                ", LastUpdateTime='" + LastUpdateTime + '\'' +
+                '}';
+    }
 }

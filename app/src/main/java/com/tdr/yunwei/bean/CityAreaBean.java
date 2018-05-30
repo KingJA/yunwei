@@ -96,4 +96,18 @@ public class CityAreaBean extends BeanID{
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    @Override
+    public String toString() {
+        return "CityAreaBean{" +
+                "ID=" + ID +
+                ", AreaID='" + AreaID + '\'' +
+                ", AreaMC='" + AreaMC + '\'' +
+                ", AreaSort='" + AreaSort + '\'' +
+                ", AreaType='" + AreaType + '\'' +
+                ", FAreaID='" + FAreaID + '\'' +
+                ", IsValid='" + IsValid + '\'' +
+                ", LastUpdateTime='" + LastUpdateTime + '\'' +
+                '}';
+    }
 }

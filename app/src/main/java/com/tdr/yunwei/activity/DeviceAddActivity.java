@@ -1468,6 +1468,7 @@ public class DeviceAddActivity extends Activity {
     }
 
     private boolean getTextData(String type) {
+        Log.e(TAG, "getTextData: ");
         DeviceCode = txt_devicecode.getText().toString().trim();
         SerialNumber = txt_deviceno.getText().toString().trim();
 
@@ -1486,7 +1487,9 @@ public class DeviceAddActivity extends Activity {
         AreaID = getID(AreaMC, 1);
         PCS = getID(PCSMC, 3);
 
+
         LOG.E("AreaID=" + AreaID + "/XQ/" + XQ + "/PCS/" + PCS);
+
         Owner = txt_owner.getText().toString().trim();
         if (txt_devicelevel.getText().toString().trim() != "" || !txt_devicelevel.getText().toString().trim().equals
                 ("")) {
@@ -1525,7 +1528,6 @@ public class DeviceAddActivity extends Activity {
     ZProgressHUD zProgressHUD;
 
     private void AddDevice() {
-
         if (!getTextData("新增")) {
             return;
         }
@@ -1661,7 +1663,7 @@ public class DeviceAddActivity extends Activity {
         map.put("deviceInfo", deviceInfo);
         map.put("systemID", SystemID);
 
-        Log.e(TAG, "【deviceInfo】: "+deviceInfo );
+        Log.e(TAG, "【deviceInfo】: " + deviceInfo);
 
         //ToastUtil.showShort(mActivity,SystemID+"//"+AreaID+"//"+PCS);
 
@@ -1670,10 +1672,8 @@ public class DeviceAddActivity extends Activity {
             public void onSuccess(String result) {
                 zProgressHUD.dismiss();
                 if (result.equals("-1")) {
-
                     return;
                 }
-
                 try {
                     JSONObject jsonObject = new JSONObject(result);
 
@@ -1695,11 +1695,8 @@ public class DeviceAddActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         });
-
-
     }
 
 
@@ -1885,15 +1882,17 @@ public class DeviceAddActivity extends Activity {
         try {
             if (num == 1) {
                 List<CityAreaBean> list = DB.selector(CityAreaBean.class).where("AreaMC", "=", MC).findAll();
+                Log.e(TAG, "list1: "+list.size() +" MC:"+MC);
+                Log.e(TAG, "CityAreaBean: "+list.get(0).toString() );
                 if (list != null && list.size() > 0) {
                     ID = list.get(0).getAreaID();
                 }
-
-
             }
 
             if (num == 3) {
-                List<CityAreaPCSBean> list = DB.selector(CityAreaPCSBean.class).where("PCSMC", "=", MC).findAll();
+                List<CityAreaPCSBean> list = DB.selector(CityAreaPCSBean.class).where("PCSMC", "like", "%"+MC+"%").findAll();
+
+                Log.e(TAG, "list3: "+list.size()+" MC:"+MC );
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         LOG.E("AreaID:" + list.get(i).getAreaID() + "  PCSMC:" + list.get(i).getPCSMC());
@@ -2041,11 +2040,11 @@ public class DeviceAddActivity extends Activity {
                         ToastUtil.ErrorOrRight(mActivity, "请扫描正确的设备二维码。", 1);
                     } else {
                         String[] device = strZbar.split(",");
-                        Log.e(TAG, "strZbar: "+strZbar );
+                        Log.e(TAG, "strZbar: " + strZbar);
                         if (device[1].equals(PRODUCE_NO_TYPE)) {
                             produceNo = device[0];
                             et_produceNo.setText(produceNo);
-                        }else{
+                        } else {
                             ToastUtil.ErrorOrRight(mActivity, "设备类型不匹配", 1);
                         }
                     }
@@ -2270,6 +2269,7 @@ public class DeviceAddActivity extends Activity {
         for (int i = 0; i < pcsBeanList.size(); i++) {
             LOG.E("PCS：" + pcsBeanList.get(i).getPCSMC() + "" + pcsBeanList.get(i).getPCSID());
             list.add(pcsBeanList.get(i).getPCSMC());
+            Log.e(TAG, "pcsBean: "+pcsBeanList.get(i).toString());
         }
 
         return list;
