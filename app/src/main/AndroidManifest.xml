@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tdr.yunwei">
+          package="com.tdr.yunwei">
 
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <!--扫一扫-->
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="cybertech.permission.READ_PSTORE_USERINFO" />
-    <uses-permission android:name="cybertech.permission.READ_PSTORE_LINKINFO" />
-    <uses-permission android:name="cybertech.pstore.permission.APP" />
-    <uses-permission android:name="cybertech.lightsproj.permission.QUERY" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="cybertech.permission.READ_PSTORE_USERINFO"/>
+    <uses-permission android:name="cybertech.permission.READ_PSTORE_LINKINFO"/>
+    <uses-permission android:name="cybertech.pstore.permission.APP"/>
+    <uses-permission android:name="cybertech.lightsproj.permission.QUERY"/>
 
 
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
     <!-- 拨打电话 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
 
     <application
@@ -54,8 +54,8 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <provider
@@ -65,8 +65,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
+
         <activity
             android:name=".activity.SelectLocation"
             android:screenOrientation="portrait">
@@ -88,68 +89,74 @@
         </activity>
         <activity
             android:name=".activity.UpdateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--设备-->
 
         <activity
             android:name=".activity.NewDeviceAddActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NewIdDeviceAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.DeviceQueryActivity3"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.DeviceAddActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.DeviceQueryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.DeviceQueryActivity2"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.DeviceBindingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--地图-->
         <activity
             android:name=".baidumap.BaiDuMapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BaiduNaviActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".activity.DeviceMapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".baidumap.BaiDuMapDeviceActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".baidumap.BaiduMapNavActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:label="@string/title_route_guide_demo" >
+            android:label="@string/title_route_guide_demo"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <!--工单-->
         <activity
             android:name=".activity.OrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.OrderListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.OrderDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.OrderHistoryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.StatisticalWorkActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.EndWorkActivity"
             android:screenOrientation="portrait"/>
@@ -159,24 +166,24 @@
 
         <activity
             android:name=".activity.EndWorkEditActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.ModifyPwdActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.UnBindingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
 
         <!--扫描-->
         <activity
             android:name="com.zbar.lib.CaptureActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.tdr.yunwei.util.PermissionsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.baidu.location.f"
@@ -187,9 +194,9 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="ntKuybouuHPqzetKmP8PCejVBxeMdN7z" />
+            android:value="ntKuybouuHPqzetKmP8PCejVBxeMdN7z"/>
         <!--FBNdGVxKkZOFTjgQi1sa3fFPbR9jcD9Q-->
-      <!--  bTPMX6je6ZBXIMLiXxdzDafe4uYeP4TV-->
+        <!--  bTPMX6je6ZBXIMLiXxdzDafe4uYeP4TV-->
 
         <!--测式版-->
 
@@ -201,16 +208,16 @@
             android:enabled="true">
             <intent-filter>
                 <!--Required 用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
                 <!--Required 用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
                 <!--Required 用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
                 <!--Required 用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <category android:name="com.tdr.yunwei" />
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <category android:name="com.tdr.yunwei"/>
             </intent-filter>
         </receiver>
 

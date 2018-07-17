@@ -63,6 +63,7 @@ public class HomeActivity extends FragmentActivity {
     DbManager DB;
     NewOrderUtil newOrder;
     private YunWeiApplication YWA;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,7 @@ public class HomeActivity extends FragmentActivity {
         mActivity = HomeActivity.this;
         YWA = YunWeiApplication.getInstance();
 //        DB = YWA.getDB();
-        DB= x.getDb(DBUtils.getDb());
+        DB = x.getDb(DBUtils.getDb());
 //        if(YWA.getCityBeanList()==null||YWA.getCityBeanList().size()==0){
 //            getcityliist();
 //        }
@@ -110,7 +111,8 @@ public class HomeActivity extends FragmentActivity {
             list3 = DB.findAll(DASBean.class);
             if (list3 != null) {
                 for (int i = 0; i < list3.size(); i++) {
-                    Log.e("DASBean", list3.get(i).getAreaID() + "//////" + list3.get(i).getSystemID() + "//////" + list3.get(i).getDeviceTypeID());
+                    Log.e("DASBean", list3.get(i).getAreaID() + "//////" + list3.get(i).getSystemID() + "//////" +
+                            list3.get(i).getDeviceTypeID());
                 }
             }
         } catch (DbException e) {
@@ -325,13 +327,15 @@ public class HomeActivity extends FragmentActivity {
 
     public static String type = "";
     public static String Remark = "";
-    public static String StationID="";
-    public static boolean IsMapiIn=false;
+    public static String StationID = "";
+    public static boolean IsMapiIn = false;
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode) {
             case 1002:
-                if (resultCode == mActivity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
                     String inputtype = data.getStringExtra("inputtype");
                     //扫描
                     if (inputtype.equals("zbar")) {
@@ -345,7 +349,7 @@ public class HomeActivity extends FragmentActivity {
                                 ToastUtil.ErrorOrRight(mActivity, "扫描设备与[" + Remark + "]不匹配,无法安装", 1);
                                 LOG.E("deviceremark=" + deviceremark + "\nRemark=" + Remark);
                             } else {
-                                HomeActivity.IsMapiIn=false;
+                                HomeActivity.IsMapiIn = false;
                                 Intent intent = new Intent(mActivity, DeviceAddActivity.class);
                                 intent.putExtra("DeviceCode", device[0]);
                                 intent.putExtra("DeviceType", device[1]);
@@ -355,7 +359,7 @@ public class HomeActivity extends FragmentActivity {
                                 //DeviceIsAdd(device[0], device[1], deviceremark);
 
                             }
-                        }else{
+                        } else {
                             ToastUtil.ErrorOrRight(mActivity, "请扫描正确的设备二维码。", 1);
                         }
                     }
@@ -366,11 +370,16 @@ public class HomeActivity extends FragmentActivity {
                         String DeviceCode = data.getStringExtra("DeviceCode");
                         Intent intent;
 
-                        if(type.equals("34560")){
-                            HomeActivity.IsMapiIn=true;
+                        if (type.equals("34560")) {
+                            HomeActivity.IsMapiIn = true;
                             intent = new Intent(mActivity, NewDeviceAddActivity.class);
-                        }else{
-                            HomeActivity.IsMapiIn=false;
+                        } else if (type.equals("34577")
+                                || type.equals("34579")
+                                || type.equals("34580")
+                                || type.equals("34581")) {
+                            intent = new Intent(mActivity, NewIdDeviceAddActivity.class);
+                        } else {
+                            HomeActivity.IsMapiIn = false;
                             intent = new Intent(mActivity, DeviceAddActivity.class);
                         }
 
@@ -378,9 +387,9 @@ public class HomeActivity extends FragmentActivity {
                         intent.putExtra("DeviceType", type);
                         intent.putExtra("DeviceRemark", Remark);
                         intent.putExtra("status", "安装");
-                        LOG.E("DeviceCode="+DeviceCode);
-                        LOG.E("type="+type);
-                        LOG.E("DeviceRemark="+Remark);
+                        LOG.E("DeviceCode=" + DeviceCode);
+                        LOG.E("type=" + type);
+                        LOG.E("DeviceRemark=" + Remark);
                         mActivity.startActivity(intent);
                     }
 
@@ -388,7 +397,7 @@ public class HomeActivity extends FragmentActivity {
                 break;
 
             case 1003:
-                if (resultCode == mActivity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
 
 
                     String inputtype = data.getStringExtra("inputtype");
@@ -423,6 +432,8 @@ public class HomeActivity extends FragmentActivity {
                     }
                 }
                 break;
+            default:
+                break;
         }
     }
 
@@ -432,31 +443,32 @@ public class HomeActivity extends FragmentActivity {
         String User = SharedUtil.getValue(mActivity, "UserId");
         List<RepairOrderBean> list = null;
         try {
-            list = DB.selector(RepairOrderBean.class).where("Status","=",2).where("User","=",User).and("DeviceCode","=",devicecode).findAll();
+            list = DB.selector(RepairOrderBean.class).where("Status", "=", 2).where("User", "=", User).and
+                    ("DeviceCode", "=", devicecode).findAll();
 
 //        List<RepairOrderBean> list = DB.findAllByWhere(RepairOrderBean.class,
 //                " Status='2' and DeviceCode= \"" + devicecode + "\" and User= \"" + User + "\"");
 
-        Log.e("list.size()", "" + list.size());
+            Log.e("list.size()", "" + list.size());
 
-        if (list.size() == 0) {
-            ToastUtil.showShort(mActivity, "设备[" + devicecode + "]可能没有维修工单或没有处于接单状态");
+            if (list.size() == 0) {
+                ToastUtil.showShort(mActivity, "设备[" + devicecode + "]可能没有维修工单或没有处于接单状态");
 
-        } else if (devicecode.equals(list.get(0).getDeviceCode())) {
+            } else if (devicecode.equals(list.get(0).getDeviceCode())) {
 
-            String status = list.get(0).getStatus();
-            if (status.equals("2")) {
+                String status = list.get(0).getStatus();
+                if (status.equals("2")) {
 
-                Intent intent = new Intent(mActivity, OrderDetailsActivity.class);
-                intent.putExtra("RepairOrderBean", list.get(0));
-                intent.putExtra("deviceremark", Remark);
-                intent.putExtra("beginstatus", "2");
-                mActivity.startActivity(intent);
-            } else {
-                ToastUtil.ShortCenter(mActivity, "该设备可能没有维修工单或没有处于接单状态");
+                    Intent intent = new Intent(mActivity, OrderDetailsActivity.class);
+                    intent.putExtra("RepairOrderBean", list.get(0));
+                    intent.putExtra("deviceremark", Remark);
+                    intent.putExtra("beginstatus", "2");
+                    mActivity.startActivity(intent);
+                } else {
+                    ToastUtil.ShortCenter(mActivity, "该设备可能没有维修工单或没有处于接单状态");
+                }
+
             }
-
-        }
         } catch (DbException e) {
             e.printStackTrace();
         }

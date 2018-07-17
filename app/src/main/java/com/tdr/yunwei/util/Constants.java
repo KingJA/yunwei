@@ -15,10 +15,10 @@ public class Constants {
 //    public static final String WEB_URL = "http://10.1.6.211:16018/PlatformService.asmx";
 //    public static final String WEB_URL = "http://10.1.6.211:8890/PlatformService.asmx";
 //    public static final String WEB_URL = "http://10.1.6.211:1012/PlatformService.asmx";
-//    public static final String WEB_URL = "http://10.130.0.104:8808/PlatformService.asmx";
+    public static final String WEB_URL = "http://10.130.0.104:8808/PlatformService.asmx";//测试 wztest 123456
 //    public static final String WEB_URL = "http://183.129.130.119:58808/PlatformService.asmx";
 //      public static final String WEB_URL = "http://116.255.205.106:1003/PlatformService.asmx";
-    public static final String WEB_URL = "http://116.255.205.106:1014/PlatformService.asmx";//正式
+//    public static final String WEB_URL = "http://116.255.205.106:1014/PlatformService.asmx";//正式
 
 
 

@@ -20,23 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tdr.yunwei.R;
-import com.tdr.yunwei.activity.BaiduNaviActivity;
-import com.tdr.yunwei.activity.DeviceAddActivity;
 import com.tdr.yunwei.activity.DeviceMapActivity;
 import com.tdr.yunwei.activity.DeviceQueryActivity;
 import com.tdr.yunwei.activity.DeviceQueryActivity2;
+import com.tdr.yunwei.activity.DeviceQueryActivity3;
 import com.tdr.yunwei.activity.HomeActivity;
-import com.tdr.yunwei.activity.NewDeviceAddActivity;
 import com.tdr.yunwei.activity.SelectLocation;
 import com.tdr.yunwei.bean.DeviceMainTypeBean;
 import com.tdr.yunwei.bean.DeviceSubTypeBean;
-import com.tdr.yunwei.fragment.OperationsFM;
 import com.tdr.yunwei.util.DipPx;
 import com.tdr.yunwei.util.LOG;
 import com.tdr.yunwei.util.SharedUtil;
 import com.tdr.yunwei.util.ToastUtil;
 import com.zbar.lib.CaptureActivity;
-
 
 import org.xutils.DbManager;
 
@@ -51,8 +47,7 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
     DbManager DB;
 
 
-
-    public ExOpearationAdapter(Activity mActivity,  List<DeviceMainTypeBean> parentList,
+    public ExOpearationAdapter(Activity mActivity, List<DeviceMainTypeBean> parentList,
                                ArrayList<ArrayList<DeviceSubTypeBean>> childList, DbManager DB) {
         this.mActivity = mActivity;
         this.parentList = parentList;
@@ -118,14 +113,16 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
 
         DeviceMainTypeBean mainBean = parentList.get(groupPosition);
         parentHoler.txt_ex_name.setText(mainBean.getRemark());
-        LinearLayout.LayoutParams LP= new LinearLayout.LayoutParams(DipPx.dip2px(mActivity,20), DipPx.dip2px(mActivity,10));
-        LP.rightMargin=DipPx.dip2px(mActivity,25);
-        LinearLayout.LayoutParams LP2= new LinearLayout.LayoutParams(DipPx.dip2px(mActivity,10), DipPx.dip2px(mActivity,20));
-        LP2.rightMargin=DipPx.dip2px(mActivity,30);
-        if(isExpanded){
+        LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(DipPx.dip2px(mActivity, 20), DipPx.dip2px
+                (mActivity, 10));
+        LP.rightMargin = DipPx.dip2px(mActivity, 25);
+        LinearLayout.LayoutParams LP2 = new LinearLayout.LayoutParams(DipPx.dip2px(mActivity, 10), DipPx.dip2px
+                (mActivity, 20));
+        LP2.rightMargin = DipPx.dip2px(mActivity, 30);
+        if (isExpanded) {
             parentHoler.iv_expanded.setLayoutParams(LP);
             parentHoler.iv_expanded.setBackgroundResource(R.mipmap.down);
-        }else{
+        } else {
             parentHoler.iv_expanded.setLayoutParams(LP2);
             parentHoler.iv_expanded.setBackgroundResource(R.mipmap.right);
         }
@@ -133,7 +130,8 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView,
+                             ViewGroup parent) {
 
         final ChildHoler childHoler;
 
@@ -162,20 +160,20 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
                 int y = location[1];
 
                 childHoler.img_city.setBackgroundResource(R.mipmap.home_more);
-                HomeActivity.type=DSTBean.getSubTypeID();
-                HomeActivity.Remark=DSTBean.getRemark();
+                HomeActivity.type = DSTBean.getSubTypeID();
+                HomeActivity.Remark = DSTBean.getRemark();
                 showPopWin(childHoler.ll_city, childHoler.img_city, DSTBean);
 
 
-                Log.e("ll_city", "x=" + x + "y=" + y + "//type="+HomeActivity.type);
+                Log.e("ll_city", "x=" + x + "y=" + y + "//type=" + HomeActivity.type);
 
-                LOG.E("ForPoliceUse="+DSTBean.getForPoliceUse());
-                LOG.E("IsValid="+DSTBean.getIsValid());
-                LOG.E("LastUpdateTime="+DSTBean.getLastUpdateTime());
-                LOG.E("MainTypeID="+DSTBean.getMainTypeID());
-                LOG.E("Remark="+DSTBean.getRemark());
-                LOG.E("SubTypeID="+DSTBean.getSubTypeID());
-                LOG.E("ID="+DSTBean.getID());
+                LOG.E("ForPoliceUse=" + DSTBean.getForPoliceUse());
+                LOG.E("IsValid=" + DSTBean.getIsValid());
+                LOG.E("LastUpdateTime=" + DSTBean.getLastUpdateTime());
+                LOG.E("MainTypeID=" + DSTBean.getMainTypeID());
+                LOG.E("Remark=" + DSTBean.getRemark());
+                LOG.E("SubTypeID=" + DSTBean.getSubTypeID());
+                LOG.E("ID=" + DSTBean.getID());
             }
         });
         childHoler.lv_ll.setOnClickListener(new OnClickListener() {
@@ -211,9 +209,10 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
     class ParentHoler {
         TextView txt_ex_name;
         ImageView iv_expanded;
+
         public ParentHoler(View view) {
             txt_ex_name = (TextView) view.findViewById(R.id.txt_ex_name);
-            iv_expanded= (ImageView) view.findViewById(R.id.iv_expanded);
+            iv_expanded = (ImageView) view.findViewById(R.id.iv_expanded);
         }
     }
 
@@ -237,12 +236,14 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
                 if (role == 13) {
                     role13 = true;
                 }
-                            }
+            }
         }
     }
+
     private PopupWindow popupWindow;
-    private RelativeLayout RL_Search,RL_Install,RL_Repair,RL_Cased,RL_Navigation,RL_Binding,RL_Back;
-    private void showPopWin(View view,  final ImageView img, DeviceSubTypeBean DSTBean) {
+    private RelativeLayout RL_Search, RL_Install, RL_Repair, RL_Cased, RL_Navigation, RL_Binding, RL_Back;
+
+    private void showPopWin(View view, final ImageView img, DeviceSubTypeBean DSTBean) {
 
         View contentView = LayoutInflater.from(mActivity).inflate(
                 R.layout.pop_opearations2, null);
@@ -256,9 +257,9 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
 
         RL_Back = (RelativeLayout) contentView.findViewById(R.id.RL_Back);
         RL_Cased.setVisibility(View.GONE);
-        if(DSTBean.getSubTypeID().equals("34560")){
+        if (DSTBean.getSubTypeID().equals("34560")) {
             RL_Binding.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             RL_Binding.setVisibility(View.GONE);
         }
         MyPopClick mypop = new MyPopClick(DSTBean);
@@ -270,7 +271,8 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
         RL_Binding.setOnClickListener(mypop);
         RL_Back.setOnClickListener(mypop);
 
-        popupWindow = new PopupWindow(contentView,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                .WRAP_CONTENT, true);
 
         popupWindow.setTouchable(true);
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -304,12 +306,15 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
         int heightView = contentView.getMeasuredHeight();
         int widthView = contentView.getMeasuredWidth();
 
-//        popupWindow.showAtLocation(view, 0, DipPx.getScreenWidth(mActivity) / 2 + 100, y - heightView / 2 + 30);//DipPx.getScreenHeight(mActivity)/2-100);
+//        popupWindow.showAtLocation(view, 0, DipPx.getScreenWidth(mActivity) / 2 + 100, y - heightView / 2 + 30);
+// DipPx.getScreenHeight(mActivity)/2-100);
 
 //        popupWindow.showAsDropDown(view, 0, 0);
         popupWindow.setAnimationStyle(R.style.AnimationBottomFade);
-        popupWindow.showAtLocation(mActivity.getLayoutInflater().inflate(R.layout.fm_operations, null), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.showAtLocation(mActivity.getLayoutInflater().inflate(R.layout.fm_operations, null), Gravity
+                .BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+
     private class MyPopClick implements OnClickListener {
 
         DeviceSubTypeBean DSTBean;
@@ -323,14 +328,19 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
             if (v == RL_Search) {//11
                 if (role11 == true) {
                     Intent intent;
-                    if(DSTBean.getSubTypeID().equals("34560")){
+                    if (DSTBean.getSubTypeID().equals("34560")) {
                         intent = new Intent(mActivity, DeviceQueryActivity2.class);
-                    }else{
+                    } else if (DSTBean.getSubTypeID().equals("34577")
+                            || DSTBean.getSubTypeID().equals("34579")
+                            || DSTBean.getSubTypeID().equals("34580")
+                            || DSTBean.getSubTypeID().equals("34581")) {
+                        intent = new Intent(mActivity, DeviceQueryActivity3.class);
+                    } else {
                         intent = new Intent(mActivity, DeviceQueryActivity.class);
                     }
-                    intent.putExtra("in","Search");
-                    intent.putExtra("type",DSTBean.getSubTypeID());
-                    intent.putExtra("remark",DSTBean.getRemark());
+                    intent.putExtra("in", "Search");
+                    intent.putExtra("type", DSTBean.getSubTypeID());
+                    intent.putExtra("remark", DSTBean.getRemark());
 
                     mActivity.startActivity(intent);
 
@@ -361,172 +371,39 @@ public class ExOpearationAdapter extends BaseExpandableListAdapter {
                     ToastUtil.ShortCenter(mActivity, "您无此功能权限");
                 }
             }
-            if(v==RL_Cased){//
+            if (v == RL_Cased) {//
                 if (role12 == true) {
                     Intent intent = new Intent(mActivity, SelectLocation.class);
-                    HomeActivity.IsMapiIn=true;
+                    HomeActivity.IsMapiIn = true;
                     mActivity.startActivity(intent);
                 } else {
                     ToastUtil.ShortCenter(mActivity, "您无此功能权限");
                 }
             }
-            if(v==RL_Navigation){//12
+            if (v == RL_Navigation) {//12
                 if (role12 == true) {
                     mActivity.startActivity(new Intent(mActivity, DeviceMapActivity.class));
                 } else {
                     ToastUtil.ShortCenter(mActivity, "您无此功能权限");
                 }
             }
-            if(v==RL_Binding){//
+            if (v == RL_Binding) {//
                 if (role12 == true) {
                     Intent intent = new Intent(mActivity, DeviceQueryActivity2.class);
-                    intent.putExtra("in","Binding");
-                    intent.putExtra("type",DSTBean.getSubTypeID());
-                    intent.putExtra("remark",DSTBean.getRemark());
+                    intent.putExtra("in", "Binding");
+                    intent.putExtra("type", DSTBean.getSubTypeID());
+                    intent.putExtra("remark", DSTBean.getRemark());
                     mActivity.startActivity(intent);
                 } else {
                     ToastUtil.ShortCenter(mActivity, "您无此功能权限");
                 }
             }
-            if(v==RL_Back){
+            if (v == RL_Back) {
 
             }
             popupWindow.dismiss();
         }
 
     }
-
-
-//    PopupWindow popupWindow;
-//
-//    ImageView img_search, img_install, img_repair,img_navigation;
-//
-//    private void showPopWin(View view, int y, final ImageView img, DeviceSubTypeBean DSTBean) {
-//
-//        View contentView = LayoutInflater.from(mActivity).inflate(
-//                R.layout.pop_opearations, null);
-//
-//        img_search = (ImageView) contentView.findViewById(R.id.img_search);
-//        img_install = (ImageView) contentView.findViewById(R.id.img_install);
-//        img_repair = (ImageView) contentView.findViewById(R.id.img_repair);
-//        img_navigation = (ImageView) contentView.findViewById(R.id.img_navigation);
-//
-//
-//        MyPopClick mypop = new MyPopClick(DSTBean);
-//        img_search.setOnClickListener(mypop);
-//        img_install.setOnClickListener(mypop);
-//        img_repair.setOnClickListener(mypop);
-//        img_navigation.setOnClickListener(mypop);
-//
-//
-//
-//        popupWindow = new PopupWindow(contentView,
-//                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-//
-//        popupWindow.setTouchable(true);
-//        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-//
-//        popupWindow.setTouchInterceptor(new OnTouchListener() {
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return false;
-//
-//            }
-//        });
-//
-//
-//        popupWindow.setBackgroundDrawable(mActivity.getResources().getDrawable(
-//                R.color.transparent));
-//
-//
-//        WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
-//        lp.alpha = 0.7f;
-//        mActivity.getWindow().setAttributes(lp);
-//        popupWindow.setOnDismissListener(new OnDismissListener() {
-//
-//            @Override
-//            public void onDismiss() {
-//                WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
-//                lp.alpha = 1f;
-//                mActivity.getWindow().setAttributes(lp);
-//
-//                img.setBackgroundResource(R.mipmap.home_more_off);
-//            }
-//        });
-//
-//        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-//        contentView.measure(widthSpec, heightSpec);
-//        int heightView = contentView.getMeasuredHeight();
-//        int widthView = contentView.getMeasuredWidth();
-//
-//        popupWindow.showAtLocation(view, 0, DipPx.getScreenWidth(mActivity) / 2 + 100, y - heightView / 2 + 30);//DipPx.getScreenHeight(mActivity)/2-100);
-//
-//    }
-
-//    private class MyPopClick implements OnClickListener {
-//
-//        DeviceSubTypeBean DSTBean;
-//
-//        public MyPopClick(DeviceSubTypeBean DSTBean) {
-//            this.DSTBean = DSTBean;
-//        }
-//
-//        @Override
-//        public void onClick(View v) {
-//            if (v == img_search) {
-//                if (role11 == true) {
-//                    Intent intent = new Intent(mActivity, DeviceQueryActivity.class);
-//                    intent.putExtra("type",DSTBean.getSubTypeID());
-//                    intent.putExtra("remark",DSTBean.getRemark());
-//
-//                    mActivity.startActivity(intent);
-//
-//                } else {
-//                    ToastUtil.ShortCenter(mActivity, "您无此功能权限");
-//                }
-//            }
-//            if (v == img_install) {
-//                if (role12 == true) {
-//                    Intent intent = new Intent(mActivity, CaptureActivity.class);
-//                    HomeActivity.IsMapiIn=false;
-//                    mActivity.startActivityForResult(intent, 1002);
-//                } else {
-//                    ToastUtil.ShortCenter(mActivity, "您无此功能权限");
-//                }
-//            }
-//            if (v == img_repair) {
-//                if (role13 == true) {
-//
-//                    String isOrderExist = SharedUtil.getValue(mActivity, "isOrderExist");
-//                    if (isOrderExist.equals("isOrderExist")) {
-//                        Intent intent = new Intent(mActivity, CaptureActivity.class);
-//                        mActivity.startActivityForResult(intent, 1003);
-//                    } else {
-//                        ToastUtil.ShortCenter(mActivity, "本手机还没有工单，请进入工单页面刷新数据！");
-//                    }
-//
-//                } else {
-//                    ToastUtil.ShortCenter(mActivity, "您无此功能权限");
-//                }
-//            }
-//            if(v==img_navigation){
-//                if (role13 == true) {
-//                    Intent intent = new Intent(mActivity, DeviceMapActivity.class);
-//                    HomeActivity.IsMapiIn=true;
-//                    mActivity.startActivity(intent);
-//                } else {
-//                    ToastUtil.ShortCenter(mActivity, "您无此功能权限");
-//                }
-//            }
-//
-//
-//            popupWindow.dismiss();
-//        }
-//
-//    }
-
-
 }
 

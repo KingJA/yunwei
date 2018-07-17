@@ -253,8 +253,8 @@ public class DeviceQueryActivity2 extends Activity {
     }
 
     private void ClickSearch(int position) {
-        Intent intent = new Intent(mActivity, NewDeviceAddActivity.class);
         DeviceBean2 devicebean =new DeviceBean2(deviceBeanList.get(position));
+        Intent intent = new Intent(mActivity, NewDeviceAddActivity.class);
         LOG.E(devicebean.getPhoto1().equals("")?"没有照片":"有照片");
         LOG.E("DeviceID="+deviceBeanList.get(position).getDeviceID());
 
